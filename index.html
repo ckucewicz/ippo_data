@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ippo Data</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f8f9f8;--surface:#ffffff;--surface2:#eef2ee;
+  --text:#1a2a1a;--text2:#5a6a5a;--text3:#9aaa9a;--border:#dce8dc;
+  --white:#f8f9f8;--off:#eef2ee;--ink:#1a2a1a;--ink2:#5a6a5a;--ink3:#9aaa9a;--ink4:#dce8dc;
+  --green:#0d6e6e;--green-bg:#e8f4f4;--green-bd:#9fd4d4;
+  --blue:#0d6e6e;--blue-bg:#e8f4f4;
+  --purple:#0d6e6e;--purple-bg:#e8f4f4;
+  --amber:#0d6e6e;--amber-bg:#e8f4f4;
+  --r:10px;--serif:'Bricolage Grotesque',sans-serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;min-height:100vh}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(250,246,240,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.nav-logo{font-family:var(--serif);font-size:19px;color:var(--ink);cursor:pointer;letter-spacing:-0.3px}
+.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-link{font-size:13px;font-weight:500;color:#5a6a5a;cursor:pointer;padding:6px 11px;border-radius:6px;transition:all .15s;border:none;background:none;font-family:var(--sans)}
+.nav-link:hover{color:#1a2a1a;background:#eef2ee}
+.nav-cta{font-size:13px;font-weight:600;color:#f8f9f8;background:var(--green);border:none;padding:7px 15px;border-radius:6px;cursor:pointer;font-family:var(--sans);transition:all .15s;margin-left:4px}
+.nav-cta:hover{opacity:.85}
+
+.page{display:none}
+.page.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.btn-primary{background:var(--text);color:#f8f9f8;border:none;padding:13px 26px;border-radius:var(--r);font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:var(--green);color:#f8f9f8;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#1a2a1a;border:1.5px solid #dce8dc;padding:12px 26px;border-radius:var(--r);font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-ghost:hover{border-color:#9aaa9a;transform:translateY(-1px)}
+.btn-text{font-size:13px;color:var(--ink2);background:none;border:none;cursor:pointer;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px}
+.btn-text:hover{color:var(--ink)}
+
+/* HOME */
+.hero{max-width:700px;margin:0 auto;padding:80px 32px 64px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--green);margin-bottom:20px}
+.eyebrow::before,.eyebrow::after{content:'';display:block;width:20px;height:1px;background:#0d6e6e}
+h1.hero-title{font-family:var(--serif);font-size:clamp(38px,6.5vw,66px);line-height:1.0;letter-spacing:-1.5px;margin-bottom:20px}
+h1.hero-title em{font-style:italic;color:var(--green)}
+.hero-sub{font-size:17px;color:var(--ink2);max-width:460px;margin:0 auto 10px;line-height:1.65;font-weight:300}
+.hero-byline{font-size:13px;color:var(--ink3);margin-bottom:40px;font-style:italic}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.proof{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px 32px;display:flex;justify-content:center;gap:52px;flex-wrap:wrap}
+.proof-num{font-family:var(--serif);font-size:28px;color:var(--ink);line-height:1;margin-bottom:2px;text-align:center}
+.proof-lbl{font-size:12px;color:var(--ink2);font-weight:500;text-align:center}
+.home-sec{max-width:840px;margin:0 auto;padding:72px 32px}
+.sec-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.sec-h{font-family:var(--serif);font-size:clamp(26px,4vw,38px);letter-spacing:-1px;line-height:1.08;margin-bottom:40px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.step-card{padding:22px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}
+.step-n{font-family:var(--serif);font-size:36px;color:var(--ink4);line-height:1;margin-bottom:10px}
+.step-title{font-size:14px;font-weight:600;margin-bottom:5px}
+.step-desc{font-size:13px;color:var(--ink2);line-height:1.55}
+.paths-strip{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 32px}
+.paths-strip-inner{max-width:840px;margin:0 auto}
+.paths-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px}
+.phc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:20px 16px;cursor:pointer;transition:all .2s}
+.phc:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.phc.g:hover{border-color:var(--green)}.phc.b:hover{border-color:var(--blue)}
+.phc.p:hover{border-color:var(--purple)}.phc.a:hover{border-color:var(--amber)}
+.phc-icon{font-size:26px;margin-bottom:10px}
+.phc-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.phc.g .phc-name{color:var(--green)}.phc.b .phc-name{color:var(--blue)}
+.phc.p .phc-name{color:var(--purple)}.phc.a .phc-name{color:var(--amber)}
+.phc-desc{font-size:12px;color:var(--ink2);line-height:1.5}
+.personal{max-width:580px;margin:0 auto;padding:60px 32px;text-align:center}
+.personal blockquote{font-family:var(--serif);font-size:clamp(17px,2.8vw,24px);line-height:1.45;color:var(--ink);font-style:italic;letter-spacing:-0.3px;margin-bottom:16px}
+.personal cite{font-size:13px;color:#9aaa9a;font-style:normal}
+
+/* DOMAIN EXPLAINER on home */
+.domain-strip{max-width:840px;margin:0 auto;padding:0 32px 72px}
+.domain-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px 32px;display:flex;gap:28px;align-items:flex-start}
+.domain-card-icon{font-size:36px;flex-shrink:0;margin-top:4px}
+.domain-card-title{font-family:var(--serif);font-size:22px;letter-spacing:-0.3px;margin-bottom:8px}
+.domain-card-body{font-size:14px;color:var(--ink2);line-height:1.7}
+
+/* QUIZ */
+.quiz-wrap{max-width:600px;margin:0 auto;padding:56px 32px 80px}
+.quiz-top{text-align:center;margin-bottom:36px}
+.quiz-top h2{font-family:var(--serif);font-size:clamp(26px,4vw,36px);letter-spacing:-0.8px;margin-bottom:8px}
+.quiz-top p{font-size:14px;color:var(--ink2)}
+.prog-row{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.prog-track{flex:1;height:3px;background:#dce8dc;border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:#0d6e6e;border-radius:2px;transition:width .4s ease}
+.prog-lbl{font-size:12px;color:var(--ink2);white-space:nowrap;font-weight:500}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px}
+.q-num{font-size:11px;color:var(--ink3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.q-text{font-size:17px;font-weight:500;line-height:1.45;margin-bottom:22px}
+.choices{display:flex;flex-direction:column;gap:8px}
+.choice-btn{width:100%;text-align:left;padding:12px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:var(--sans);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:10px;line-height:1.4}
+.choice-btn:hover{border-color:var(--text3);background:var(--surface2)}
+.choice-btn.sel{border-color:#0d6e6e;background:#e8f4f4;color:#0d6e6e}
+.choice-ltr{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;color:var(--text2);background:var(--surface2);transition:all .15s}
+.choice-btn.sel .choice-ltr{border-color:#0d6e6e;background:#0d6e6e;color:#ffffff}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.btn-back{font-size:13px;color:var(--ink2);background:none;border:none;cursor:pointer;font-family:var(--sans)}
+.btn-back:hover{color:var(--ink)}
+.btn-next{font-size:13px;font-weight:600;color:var(--white);background:var(--ink);border:none;padding:9px 22px;border-radius:8px;cursor:pointer;font-family:var(--sans);transition:opacity .15s}
+.btn-next:disabled{opacity:.25;cursor:not-allowed}
+.btn-next:not(:disabled):hover{opacity:.8}
+
+/* RESULT */
+.result-wrap{max-width:640px;margin:0 auto;padding:56px 32px 80px}
+.result-header{text-align:center;margin-bottom:32px}
+.result-eye{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink2);margin-bottom:10px}
+.result-title{font-family:var(--serif);font-size:clamp(24px,4vw,34px);letter-spacing:-0.8px;margin-bottom:8px}
+.result-sub{font-size:15px;color:var(--ink2);line-height:1.6;max-width:460px;margin:0 auto}
+.sec-lbl{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px}
+.rpc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;margin-bottom:12px;cursor:pointer;transition:all .2s}
+.rpc:hover{box-shadow:0 4px 20px rgba(0,0,0,.08);transform:translateY(-1px)}
+.rpc.best{border:1.5px solid #0d6e6e}
+.rpc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.rpc-name{font-size:16px;font-weight:600}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.badge-best{background:#e8f4f4;color:#0d6e6e}.badge-also{background:var(--off);color:var(--ink2)}
+.rpc-desc{font-size:13px;color:var(--ink2);line-height:1.55;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{font-size:11px;padding:3px 9px;border-radius:4px;background:#dce8dc;color:#5a6a5a;border:1px solid #c8d4c8}
+.rpc-cta{font-size:13px;color:var(--green);font-weight:500}
+
+/* ROADMAP */
+.rm-wrap{max-width:760px;margin:0 auto;padding:48px 32px 80px}
+.rm-back{font-size:13px;color:var(--ink2);background:none;border:none;cursor:pointer;font-family:var(--sans);margin-bottom:20px;display:flex;align-items:center;gap:6px}
+.rm-back:hover{color:var(--ink)}
+.rm-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+.rm-badge.g{background:var(--green-bg);color:var(--green)}.rm-badge.b{background:var(--blue-bg);color:var(--blue)}
+.rm-badge.p{background:var(--purple-bg);color:var(--purple)}.rm-badge.a{background:var(--amber-bg);color:var(--amber)}
+.rm-title{font-family:var(--serif);font-size:clamp(28px,5vw,46px);letter-spacing:-1px;line-height:1.08;margin-bottom:10px}
+.rm-desc{font-size:15px;color:var(--ink2);line-height:1.65;max-width:560px;margin-bottom:20px}
+.rm-meta{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.rm-meta-item{font-size:13px;color:var(--ink2)}
+.rm-meta-item span{font-weight:600;color:var(--ink)}
+
+/* SECTOR FILTER */
+.sector-filter{margin-bottom:28px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px}
+.sector-filter-label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.sector-pills{display:flex;flex-wrap:wrap;gap:8px}
+.sector-pill{font-size:13px;font-weight:500;padding:7px 16px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface2);color:var(--text2);font-family:var(--sans);transition:all .15s}
+.sector-pill:hover{border-color:var(--ink3);color:var(--ink)}
+.sector-pill.active{background:var(--green);color:#f8f9f8;border-color:var(--green)}
+
+/* SECTOR PANEL, full domain view */
+.sector-panel{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px 26px;margin-bottom:28px;animation:fadeUp .25s ease}
+.sector-panel.visible{display:block}
+.sp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+.sp-title{font-family:var(--serif);font-size:20px;letter-spacing:-0.3px}
+.sp-close{font-size:12px;color:var(--ink3);background:none;border:none;cursor:pointer;font-family:var(--sans);flex-shrink:0;padding:2px 0}
+.sp-close:hover{color:var(--ink)}
+.sp-sections{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sp-section{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px 18px}
+.sp-sec-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.sp-sec-body{font-size:13px;color:var(--ink2);line-height:1.65}
+.sp-mindset{grid-column:1/-1;border-left:3px solid var(--ac,#1a6b4a)}
+.sp-tools-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sp-tool{font-size:11px;padding:3px 9px;border-radius:4px;background:#dce8dc;color:#5a6a5a;border:1px solid #c8d4c8}
+.sp-datasets{font-size:13px;color:var(--ink2);line-height:1.65}
+
+/* TABS */
+.rm-tabs{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:32px}
+.rm-tab{flex:1;padding:10px 6px;text-align:center;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;background:var(--surface);border:none;font-family:var(--sans);transition:all .15s;border-right:1px solid var(--ink4)}
+.rm-tab:last-child{border-right:none}
+.rm-tab:hover{background:var(--surface2);color:var(--text)}
+.rm-tab.active{background:var(--surface2);color:var(--text);font-weight:600}
+.rm-tab-content{display:none}
+.rm-tab-content.active{display:block;animation:fadeUp .2s ease}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:1.5px;background:var(--border)}
+.phase{position:relative;margin-bottom:20px}
+.phase-dot{position:absolute;left:-24px;top:18px;width:12px;height:12px;border-radius:50%;border:2px solid var(--border);background:var(--bg);transition:all .3s}
+.phase.open .phase-dot{border-color:var(--ac,#0d6e6e);background:var(--ac,#0d6e6e)}
+.phase-hdr{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);transition:border-color .15s}
+.phase.open .phase-hdr{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent}
+.phase-hdr:hover{border-color:var(--text3)}
+.phase-toggle{font-size:11px;color:var(--ink3);margin-left:auto;transition:transform .25s}
+.phase.open .phase-toggle{transform:rotate(180deg)}
+.phase-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
+.phase-name{font-size:16px;font-weight:600}
+.phase-time{font-size:12px;color:var(--ink3);white-space:nowrap}
+.phase-body{display:none;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r) var(--r);overflow:hidden}
+.phase.open .phase-body{display:block}
+.ps{padding:16px 20px;border-bottom:1px solid var(--border);background:var(--surface)}
+.ps:last-child{border-bottom:none}
+.ps-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.ps-desc{font-size:13px;color:var(--ink2);line-height:1.65;margin-bottom:12px}
+.topic-pills{display:flex;flex-wrap:wrap;gap:7px}
+.topic-pill{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid var(--border);color:var(--text2);background:var(--surface2)}
+.phase-resources{display:flex;flex-direction:column;gap:8px}
+.phase-res-item{display:flex;align-items:flex-start;gap:8px;font-size:13px}
+.phase-res-item::before{content:'→';color:var(--ac);flex-shrink:0;margin-top:1px}
+.phase-res-link{color:#1a2a1a;text-decoration:none;font-weight:500}
+.phase-res-link:hover{color:#0d6e6e}
+.phase-res-note{color:var(--ink3);font-size:12px;margin-top:1px}
+
+/* PROJECTS */
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;margin-bottom:12px}
+.proj-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.proj-name{font-size:15px;font-weight:600}
+.proj-diff{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.proj-diff.s{color:var(--green)}.proj-diff.m{color:var(--amber)}.proj-diff.a{color:var(--blue)}
+.proj-desc{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* RESOURCES */
+.res-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:10px;display:flex;gap:12px;align-items:flex-start}
+.res-badge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.res-badge.free{background:#e8f4f4;color:#0d6e6e;border:1px solid #9fd4d4}.res-badge.book{background:#eef2ee;color:#5a6a5a;border:1px solid #dce8dc}
+.res-name{font-size:14px;font-weight:600;display:block;margin-bottom:1px}
+.res-where{font-size:12px;color:var(--ink3)}
+.res-desc{font-size:13px;color:var(--ink2);line-height:1.55;margin-top:5px}
+
+/* CAREER HUB */
+.hub-wrap{max-width:800px;margin:0 auto;padding:56px 32px 80px}
+.hub-title{font-family:var(--serif);font-size:clamp(30px,5vw,48px);letter-spacing:-0.5px;line-height:1.1;margin-bottom:10px}
+.hub-sub{font-size:15px;color:var(--ink2);max-width:500px;line-height:1.6;margin-bottom:52px}
+.hub-section{margin-bottom:52px}
+.hub-sec-title{font-family:var(--serif);font-size:24px;letter-spacing:-0.3px;margin-bottom:6px}
+.hub-sec-sub{font-size:13px;color:var(--ink2);margin-bottom:20px;line-height:1.55}
+
+/* TRIFECTA */
+.trifecta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.tri-card{border-radius:var(--r);padding:22px 20px;text-align:center}
+.tri-card.skills{background:var(--surface2);border:1px solid var(--border)}
+.tri-card.network{background:var(--surface2);border:1px solid var(--border)}
+.tri-card.apply{background:var(--surface2);border:1px solid var(--border)}
+.tri-num{font-family:var(--serif);font-size:36px;line-height:1;margin-bottom:8px}
+.tri-card.skills .tri-num{color:var(--text2)}
+.tri-card.network .tri-num{color:var(--text2)}
+.tri-card.apply .tri-num{color:var(--text2)}
+.tri-title{font-size:15px;font-weight:600;margin-bottom:6px}
+.tri-card.skills .tri-title{color:var(--text)}
+.tri-card.network .tri-title{color:var(--text)}
+.tri-card.apply .tri-title{color:var(--text)}
+.tri-body{font-size:12px;color:var(--ink2);line-height:1.55}
+.trifecta-note{font-size:13px;color:var(--text2);line-height:1.7;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:24px}
+
+/* JOB SEARCH STEPS */
+.job-steps{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:8px}
+.job-step{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;border-bottom:1px solid var(--border);background:var(--surface)}
+.job-step:last-child{border-bottom:none}
+.job-step-n{font-family:var(--serif);font-size:28px;color:var(--ink4);line-height:1;flex-shrink:0;width:32px;text-align:center;margin-top:2px}
+.job-step-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.job-step-body{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* RESUME / LINKEDIN TIPS */
+.tip-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:10px}
+.tip-title{font-size:14px;font-weight:600;margin-bottom:5px}
+.tip-body{font-size:13px;color:var(--ink2);line-height:1.6}
+.tip-body a{color:var(--green)}
+
+/* FILTER TABS (boards / people) */
+.filter-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.ftab{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1px solid var(--border);cursor:pointer;background:var(--surface);color:var(--text2);font-family:var(--sans);transition:all .15s}
+.ftab:hover{border-color:var(--ink3);color:var(--ink)}
+.ftab.active{background:var(--green);color:#f8f9f8;border-color:var(--green)}
+.fcontent{display:none}
+.fcontent.active{display:block;animation:fadeUp .2s ease}
+
+.board-list{display:flex;flex-direction:column;gap:8px}
+.board-item{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 16px;transition:all .15s;cursor:pointer}
+.board-item:hover{border-color:var(--green);transform:translateX(3px)}
+.board-name{font-size:14px;font-weight:600;margin-bottom:2px}
+.board-desc{font-size:12px;color:var(--ink2)}
+.board-tag{font-size:11px;padding:3px 10px;border-radius:20px;background:#e8f4f4;color:#0d6e6e;border:1px solid #9fd4d4;flex-shrink:0;white-space:nowrap}
+
+.people-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.person-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
+.person-name{font-size:13px;font-weight:600;margin-bottom:1px}
+.person-handle{font-size:11px;color:var(--green);margin-bottom:5px}
+.person-why{font-size:12px;color:var(--ink2);line-height:1.5}
+
+.coming-soon-block{background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--r);padding:24px;text-align:center;margin-top:32px}
+.coming-soon-block h3{font-family:var(--serif);font-size:19px;margin-bottom:6px}
+.coming-soon-block p{font-size:13px;color:var(--ink2);margin-bottom:14px}
+.cs-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);color:var(--text3)}
+
+@media(max-width:700px){
+  .steps-grid,.trifecta{grid-template-columns:1fr}
+  .paths-grid{grid-template-columns:1fr 1fr}
+  .people-grid{grid-template-columns:1fr 1fr}
+  .sp-sections{grid-template-columns:1fr}
+  .sp-mindset{grid-column:1}
+  nav{padding:0 16px}
+  .rm-wrap,.quiz-wrap,.result-wrap,.hub-wrap,.home-sec,.domain-strip{padding-left:16px;padding-right:16px}
+  .hero{padding:52px 16px 44px}
+  .rm-tabs .rm-tab{font-size:11px;padding:8px 4px}
+  .proof{gap:28px}
+}
+@media(max-width:460px){.paths-grid,.people-grid{grid-template-columns:1fr}}
+
+/* RESUME PREVIEW */
+.resume-preview{background:#fff;border:1px solid #dce8dc;border-radius:var(--r);padding:32px 36px;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#111;margin-top:4px}
+.rp-header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #0d6e6e}
+.rp-name{font-size:22px;font-weight:700;letter-spacing:-0.3px;margin-bottom:4px;color:#111}
+.rp-contact{font-size:11px;color:#666}
+.rp-section{margin-bottom:16px}
+.rp-sec-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0d6e6e;border-bottom:1px solid #dde4ec;padding-bottom:4px;margin-bottom:10px}
+.rp-sec-body{font-size:12px;color:#444;line-height:1.6}
+.rp-skill-row{font-size:12px;color:#333;margin-bottom:4px}
+.rp-skill-label{font-weight:700;color:#111}
+.rp-job-header{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.rp-job-title{font-size:13px;font-weight:700;color:#111}
+.rp-job-meta{font-size:11px;color:#888}
+.rp-date{font-size:11px;color:#888;white-space:nowrap;flex-shrink:0}
+.rp-degree{font-size:12px;color:#555;margin-top:2px}
+.rp-bullets{list-style:disc;padding-left:18px;margin:2px 0 10px}
+.rp-bullets li{font-size:12px;color:#444;line-height:1.55;margin-bottom:3px}
+.rp-placeholder{color:#888;font-style:italic}
+
+</style>
+</head>
+<body>
+
+<div id="beta-banner" style="background:#0d6e6e;color:#ffffff;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:13px;font-weight:500;text-align:center;padding:9px 48px;position:relative;line-height:1.4">
+  We're in beta! This site is actively being built, content, paths, and resources will keep improving.
+  &nbsp;·&nbsp;
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTRYP4u-QOcPBgv4cUsKW5wWynLacNbR9WQMpYmKLur4tZJA/viewform?usp=dialog" target="_blank" onclick="document.getElementById('beta-banner').style.display='none'" style="color:#ffffff;font-weight:700;text-decoration:underline;text-underline-offset:3px">Share feedback or suggest a resource →</a>
+  <button onclick="document.getElementById('beta-banner').style.display='none'" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:#ffffff;opacity:0.6;line-height:1;font-family:sans-serif">×</button>
+</div>
+<nav>
+  <div class="nav-logo" onclick="show('home')">Ippo <span>Data</span></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="show('home')">Home</button>
+    <button class="nav-link" onclick="show('quiz')">Quiz</button>
+    <button class="nav-link" onclick="show('paths')">Paths</button>
+    <button class="nav-link" onclick="show('hub')">Career Hub</button>
+    <button class="nav-link" onclick="show('about')">About</button>
+    <button class="nav-cta" onclick="show('quiz')">Find my path →</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1 class="hero-title">Your data career<br><em>starts here.</em></h1>
+    <p class="hero-sub">Not sure where to start? This site cuts through the noise and shows you exactly what to learn, based on what you enjoy and where you want to work.</p>
+    <p class="hero-byline">Every data career starts somewhere. This is where yours does.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="show('quiz')">Take the quiz, find your path</button>
+      <button class="btn-ghost" onclick="show('paths')">Browse all paths</button>
+    </div>
+  </div>
+  <div class="proof">
+    <div><div class="proof-num">4</div><div class="proof-lbl">Career paths</div></div>
+    <div><div class="proof-num">4</div><div class="proof-lbl">Industry sectors</div></div>
+    <div><div class="proof-num">7</div><div class="proof-lbl">Quiz questions</div></div>
+    <div><div class="proof-num">100%</div><div class="proof-lbl">Free to use</div></div>
+  </div>
+  <div class="home-sec">
+    <div class="sec-eye">How it works</div>
+    <div class="sec-h">Three steps to your<br>data career</div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-n">01</div><div class="step-title">Take the quiz</div><div class="step-desc">7 questions about your interests, strengths, and what you want to avoid. No right answers.</div></div>
+      <div class="step-card"><div class="step-n">02</div><div class="step-title">Get matched</div><div class="step-desc">We recommend 1–2 paths based on your answers, with a clear explanation of why each fits.</div></div>
+      <div class="step-card"><div class="step-n">03</div><div class="step-title">Follow the roadmap</div><div class="step-desc">Phase-by-phase learning guide with topic areas, curated resources, and project ideas, tailored to your industry.</div></div>
+    </div>
+  </div>
+  <div class="domain-strip">
+    <div class="domain-card">
+      <div class="domain-card-icon">🧠</div>
+      <div>
+        <div class="domain-card-title">Skills alone won't get you hired.</div>
+        <div class="domain-card-body">The data job market is competitive. Two candidates can have identical technical skills, and the one who understands the <em>business, the field, and the problems</em> wins every time. That's why this site doesn't just teach you SQL and Python. It helps you think like a practitioner in your specific industry. A finance analyst and an environmental researcher might run the same regression, but they ask completely different questions, interpret results differently, and know which numbers actually matter. Domain knowledge is what makes you hireable.</div>
+      </div>
+    </div>
+  </div>
+  <div class="paths-strip">
+    <div class="paths-strip-inner">
+      <div class="sec-eye">Career paths</div>
+      <div class="sec-h">Four roads into data</div>
+      <div class="paths-grid">
+        <div class="phc g" onclick="roadmap('analyst')"><div class="phc-icon">📊</div><div class="phc-name">Data Analyst</div><div class="phc-desc">Turn data into decisions. SQL, dashboards, and storytelling.</div></div>
+        <div class="phc b" onclick="roadmap('science')"><div class="phc-icon">🔬</div><div class="phc-name">Data Scientist</div><div class="phc-desc">Stats, experiments, and predictive models.</div></div>
+        <div class="phc p" onclick="roadmap('ml')"><div class="phc-icon">🤖</div><div class="phc-name">ML / AI Engineer</div><div class="phc-desc">Build and ship machine learning models into products.</div></div>
+        <div class="phc a" onclick="roadmap('engineer')"><div class="phc-icon">⚙️</div><div class="phc-name">Data Engineer</div><div class="phc-desc">Design pipelines and data systems at scale.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="personal">
+    <blockquote>"A journey of a thousand miles begins with a single step."</blockquote>
+    <cite>Lao Tzu</cite>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="page-quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-top"><h2>Which data career fits you?</h2><p>7 questions · about 2 minutes</p></div>
+    <div class="prog-row"><div class="prog-track"><div class="prog-fill" id="prog"></div></div><div class="prog-lbl" id="prog-lbl">1 of 7</div></div>
+    <div class="q-card" id="q-card"></div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="page" id="page-result">
+  <div class="result-wrap">
+    <div class="result-header">
+      <div class="result-eye">Your results</div>
+      <div class="result-title" id="r-title"></div>
+      <div class="result-sub" id="r-sub"></div>
+    </div>
+    <div class="sec-lbl">Recommended paths</div>
+    <div id="r-cards"></div>
+    <div style="text-align:center;margin-top:20px"><button class="btn-text" onclick="show('quiz')">Retake the quiz</button></div>
+  </div>
+</div>
+
+<!-- PATHS BROWSE -->
+<div class="page" id="page-paths">
+  <div class="rm-wrap">
+    <div style="text-align:center;margin-bottom:40px">
+      <div class="sec-eye">All paths</div>
+      <div style="font-family:var(--serif);font-size:clamp(26px,4vw,38px);letter-spacing:-0.8px;margin-bottom:8px">Browse every roadmap</div>
+      <p style="font-size:14px;color:var(--ink2)">Not sure which fits? <button class="btn-text" onclick="show('quiz')">Take the quiz →</button></p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px">
+      <div class="rpc" onclick="roadmap('analyst')"><div class="rpc-top"><div class="rpc-name">📊 Data Analyst</div></div><div class="rpc-desc">SQL, dashboards, and business storytelling. The most accessible entry point into data.</div><div class="tags"><span class="tag">SQL</span><span class="tag">Tableau</span><span class="tag">Python</span></div><div class="rpc-cta" style="margin-top:8px">View roadmap →</div></div>
+      <div class="rpc" onclick="roadmap('science')"><div class="rpc-top"><div class="rpc-name">🔬 Data Scientist</div></div><div class="rpc-desc">Statistics, predictive modeling, and experimentation.</div><div class="tags"><span class="tag">Python / R</span><span class="tag">Statistics</span><span class="tag">ML</span></div><div class="rpc-cta" style="margin-top:8px">View roadmap →</div></div>
+      <div class="rpc" onclick="roadmap('ml')"><div class="rpc-top"><div class="rpc-name">🤖 ML / AI Engineer</div></div><div class="rpc-desc">Build and deploy machine learning models into real products.</div><div class="tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">MLOps</span></div><div class="rpc-cta" style="margin-top:8px">View roadmap →</div></div>
+      <div class="rpc" onclick="roadmap('engineer')"><div class="rpc-top"><div class="rpc-name">⚙️ Data Engineer</div></div><div class="rpc-desc">Build the pipelines and infrastructure that power data teams.</div><div class="tags"><span class="tag">Spark</span><span class="tag">Airflow</span><span class="tag">dbt</span></div><div class="rpc-cta" style="margin-top:8px">View roadmap →</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div class="page" id="page-roadmap">
+  <div class="rm-wrap">
+    <button class="rm-back" id="rm-back">← Back</button>
+    <div id="rm-header"></div>
+    <div class="sector-filter">
+      <div class="sector-filter-label">I want to work in</div>
+      <div class="sector-pills" id="sector-pills"></div>
+    </div>
+    <div class="sector-panel" id="sector-panel"></div>
+    <div class="rm-tabs">
+      <button class="rm-tab active" onclick="rmTab('roadmap')">Roadmap</button>
+      <button class="rm-tab" onclick="rmTab('projects')">Projects</button>
+      <button class="rm-tab" onclick="rmTab('resources')">Resources</button>
+    </div>
+    <div class="rm-tab-content active" id="tab-roadmap"></div>
+    <div class="rm-tab-content" id="tab-projects"></div>
+    <div class="rm-tab-content" id="tab-resources"></div>
+  </div>
+</div>
+
+<!-- CAREER HUB -->
+<div class="page" id="page-hub">
+  <div class="hub-wrap">
+    <div class="sec-eye">Career Hub</div>
+    <div class="hub-title">Land the job.<br>Build your network.</div>
+    <div class="hub-sub">Skills get you in the room. Strategy gets you the offer. Here's how to approach the job search intentionally.</div>
+
+    <!-- JOB SEARCH STRATEGY -->
+    <div class="hub-section">
+      <div class="hub-sec-title">The job search trifecta</div>
+      <div class="hub-sec-sub">Three things determine whether you land a data role. Most people only work on one of them.</div>
+      <div class="trifecta">
+        <div class="tri-card skills">
+          <div class="tri-num">1</div>
+          <div class="tri-title">Skills & Knowledge</div>
+          <div class="tri-body">Technical skills, domain knowledge, and a portfolio that proves you can do the work. This is what the roadmaps are for.</div>
+        </div>
+        <div class="tri-card network">
+          <div class="tri-num">2</div>
+          <div class="tri-title">Networking</div>
+          <div class="tri-body">Most jobs are filled before they're posted. Building genuine relationships in your target field is how you get to interviews others never see.</div>
+        </div>
+        <div class="tri-card apply">
+          <div class="tri-num">3</div>
+          <div class="tri-title">Application Strategy</div>
+          <div class="tri-body">Applying to 100 jobs cold rarely works. A targeted, tailored approach to a handful of roles you actually want is far more effective.</div>
+        </div>
+      </div>
+      <div class="trifecta-note">Most people focus entirely on skills and then mass-apply to everything. That's the hardest path. The people who land roles fastest usually have all three working together, even modestly. You don't need to be an expert networker or write perfect cover letters. You just need to be intentional.</div>
+    </div>
+
+    <!-- TARGETED APPLICATION STRATEGY -->
+    <div class="hub-section">
+      <div class="hub-sec-title">The targeted application approach</div>
+      <div class="hub-sec-sub">Instead of cold-applying to dozens of jobs and hearing nothing, build a short list of companies you genuinely want to work for and go deep on each one. This takes more effort per application, and gets dramatically better results.</div>
+      <div class="job-steps">
+        <div class="job-step">
+          <div class="job-step-n">1</div>
+          <div><div class="job-step-title">Build your target list</div><div class="job-step-body">Write down 10–20 companies you'd actually be excited to work at. Consider: industry, company size, mission, the kind of data problems they work on. Don't apply to any of them yet.</div></div>
+        </div>
+        <div class="job-step">
+          <div class="job-step-n">2</div>
+          <div><div class="job-step-title">Research each company</div><div class="job-step-body">Understand what they do, what their data team looks like, what problems they're trying to solve. Look at their blog, press releases, LinkedIn, job postings. This research will come up in interviews.</div></div>
+        </div>
+        <div class="job-step">
+          <div class="job-step-n">3</div>
+          <div><div class="job-step-title">Find a way in</div><div class="job-step-body">Before you apply, look for someone at the company on LinkedIn, ideally someone in the data team or a recruiter. Send a short, genuine message: who you are, why you're interested in their work specifically, and a question. Not asking for a job, asking to learn. A warm application is exponentially more effective than a cold one.</div></div>
+        </div>
+        <div class="job-step">
+          <div class="job-step-n">4</div>
+          <div><div class="job-step-title">Tailor your application</div><div class="job-step-body">When you do apply, customize your resume and any cover letter for that specific role. Mirror their language. Highlight the experience most relevant to their team. This is only possible because you're applying to a handful of roles, not a hundred.</div></div>
+        </div>
+        <div class="job-step">
+          <div class="job-step-n">5</div>
+          <div><div class="job-step-title">Follow up and stay visible</div><div class="job-step-body">If you don't hear back in 1–2 weeks, a short follow-up is appropriate. Continue engaging with their content on LinkedIn. Stay on their radar. Hiring happens in cycles, being remembered when the timing is right matters.</div></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text3);margin-top:10px;font-style:italic">This approach is adapted from <em>The 2-Hour Job Search</em> by Steve Dalton, highly recommended reading.</p>
+    </div>
+
+    <!-- RESUME -->
+    <div class="hub-section">
+      <div class="hub-sec-title">Resume</div>
+      <div class="tip-card"><div class="tip-title">Keep it focused</div><div class="tip-body">One page until you have 5+ years of experience. Lead with a 2-sentence summary: who you are, what role you're targeting, and your strongest credential. Every bullet should describe impact, not just activity.</div></div>
+      <div class="tip-card"><div class="tip-title">Use numbers wherever you can</div><div class="tip-body">"Reduced query runtime by 40%" beats "improved query performance." Even rough estimates are better than none. Numbers make claims real.</div></div>
+      <div class="tip-card"><div class="tip-title">Treat your projects like work experience</div><div class="tip-body">If you don't have a data job yet, your portfolio projects are your experience section. Include the problem you solved, what you built, and a GitHub or live link.</div></div>
+      <div class="tip-card"><div class="tip-title">Data role resume template</div><div class="tip-body">
+        A one-page template built specifically for data roles, with section order, bullet prompts, and guidance baked in.
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <a href="#" onclick="alert('Add your hosted .docx link here');return false;" style="font-size:12px;font-weight:600;color:#f8f9f8;background:var(--green);padding:6px 14px;border-radius:6px;text-decoration:none">Download .docx template</a>
+          <button onclick="document.getElementById('resume-preview-toggle').classList.toggle('open')" style="font-size:12px;color:var(--green);background:none;border:none;cursor:pointer;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px">Preview template ↓</button>
+        </div>
+      </div></div>
+
+      <!-- RESUME PREVIEW (collapsible) -->
+      <div id="resume-preview-toggle" style="display:none;margin-top:4px">
+      <style>.open{display:block!important}</style>
+      <div class="resume-preview">
+        <div class="rp-header">
+          <div class="rp-name">[YOUR FULL NAME]</div>
+          <div class="rp-contact">[City, State] &nbsp;|&nbsp; [phone] &nbsp;|&nbsp; [<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc8c0ccc4c1edc8c0ccc4c183cec2c0">[email&#160;protected]</a>] &nbsp;|&nbsp; Portfolio &nbsp;|&nbsp; GitHub &nbsp;|&nbsp; LinkedIn</div>
+        </div>
+        <div class="rp-section">
+          <div class="rp-sec-title">Summary</div>
+          <div class="rp-sec-body rp-placeholder">Write 2–3 sentences here. Lead with your target role and your strongest relevant credential. Mention the intersection of your technical skills and domain background, this is what sets you apart. Example: "Data analyst with experience in [field] and a background in [domain]. Skilled in SQL, Python, and data visualization, with a focus on [type of problems you solve]."</div>
+        </div>
+        <div class="rp-section">
+          <div class="rp-sec-title">Technical Skills</div>
+          <div class="rp-skill-row"><span class="rp-skill-label">Languages:</span> <span class="rp-placeholder">Python, SQL, R (add or remove as appropriate)</span></div>
+          <div class="rp-skill-row"><span class="rp-skill-label">Data & Analysis:</span> <span class="rp-placeholder">Pandas, NumPy, Scikit-learn (add or remove as appropriate)</span></div>
+          <div class="rp-skill-row"><span class="rp-skill-label">Visualization:</span> <span class="rp-placeholder">Tableau, Power BI, Matplotlib, Seaborn, Google Looker Studio</span></div>
+          <div class="rp-skill-row"><span class="rp-skill-label">Tools & Platforms:</span> <span class="rp-placeholder">Git / GitHub, Jupyter, dbt, Airflow (add or remove as appropriate)</span></div>
+          <div class="rp-skill-row"><span class="rp-skill-label">Other:</span> <span class="rp-placeholder">[Domain-specific tools, certifications, or relevant software]</span></div>
+        </div>
+        <div class="rp-section">
+          <div class="rp-sec-title">Technical Projects</div>
+          <div class="rp-job-header"><span class="rp-job-title rp-placeholder">[Project Name (hyperlink to GitHub repo)]</span><span class="rp-job-meta rp-placeholder">Python · SQL · Tableau · [other tools used]</span></div>
+          <ul class="rp-bullets">
+            <li class="rp-placeholder">[One sentence describing what you built and what data you worked with.]</li>
+            <li class="rp-placeholder">[One sentence on a specific technical thing you did, query, model, visualization, analysis.]</li>
+            <li class="rp-placeholder">[One sentence on the outcome or insight. Use a number if you can: 1.2M records, 40% improvement, etc.]</li>
+          </ul>
+          <div class="rp-job-header"><span class="rp-job-title rp-placeholder">[Project Name (hyperlink to GitHub repo)]</span><span class="rp-job-meta rp-placeholder">R · GeoPandas · [other tools used]</span></div>
+          <ul class="rp-bullets">
+            <li class="rp-placeholder">[What was the question or problem you were exploring?]</li>
+            <li class="rp-placeholder">[What did you do with the data? What techniques did you use?]</li>
+            <li class="rp-placeholder">[What did you find or build? Link to GitHub or live demo if available.]</li>
+          </ul>
+          <div class="rp-job-header"><span class="rp-job-title rp-placeholder">[Project Name (hyperlink to GitHub repo)]</span><span class="rp-job-meta rp-placeholder">[Tools used]</span></div>
+          <ul class="rp-bullets">
+            <li class="rp-placeholder">[Brief description of the project.]</li>
+            <li class="rp-placeholder">[Key technical contribution or finding.]</li>
+            <li class="rp-placeholder">[Key technical contribution or finding.]</li>
+          </ul>
+        </div>
+        <div class="rp-section">
+          <div class="rp-sec-title">Education</div>
+          <div class="rp-job-header">
+            <div><span class="rp-job-title rp-placeholder">[University Name]</span><span class="rp-job-meta rp-placeholder"> &nbsp;·&nbsp; [City, State] &nbsp;·&nbsp; GPA: [X.X], include only if 3.5+</span></div>
+            <span class="rp-date rp-placeholder">[Month Year]</span>
+          </div>
+          <div class="rp-degree rp-placeholder">[e.g., Master of Science, [Field] &nbsp; or &nbsp; Bachelor of Science, [Field]]</div>
+        </div>
+        <div class="rp-section" style="margin-bottom:0">
+          <div class="rp-sec-title">Work Experience</div>
+          <div class="rp-job-header">
+            <div><span class="rp-job-title rp-placeholder">[Company Name]</span><span class="rp-job-meta rp-placeholder">, [Job Title]</span></div>
+            <span class="rp-date rp-placeholder">[City, State] &nbsp;·&nbsp; [Month Year] – Present</span>
+          </div>
+          <ul class="rp-bullets">
+            <li class="rp-placeholder">[Lead with an action verb. Describe what you built, analyzed, or led, and what it achieved.]</li>
+            <li class="rp-placeholder">[Use numbers wherever possible: team size, dataset size, dollar amounts, percentages.]</li>
+            <li class="rp-placeholder">[Highlight any data, research, or technical work even if the role was not a pure data role.]</li>
+          </ul>
+          <div class="rp-job-header">
+            <div><span class="rp-job-title rp-placeholder">[Company Name]</span><span class="rp-job-meta rp-placeholder">, [Job Title]</span></div>
+            <span class="rp-date rp-placeholder">[City, State] &nbsp;·&nbsp; [Month Year] – [Month Year]</span>
+          </div>
+          <ul class="rp-bullets">
+            <li class="rp-placeholder">[Action verb + what you did + the result or scale of impact.]</li>
+            <li class="rp-placeholder">[Technical contributions: tools used, data processed, models built, reports created.]</li>
+            <li class="rp-placeholder">[Cross-functional or stakeholder work is worth noting, shows communication skills.]</li>
+          </ul>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- LINKEDIN -->
+    <div class="hub-section">
+      <div class="hub-sec-title">LinkedIn</div>
+      <div class="tip-card"><div class="tip-title">Optimize your headline</div><div class="tip-body">Don't just write your current title. Write what you do and where you're heading. Example: "Aspiring Data Analyst · SQL · Python · Tableau · Open to Opportunities."</div></div>
+      <div class="tip-card"><div class="tip-title">Post about your learning</div><div class="tip-body">Share project updates, things you learned, tools you explored. It doesn't need to be polished. Authenticity travels further than polish on LinkedIn, and consistency compounds over time.</div></div>
+      <div class="tip-card"><div class="tip-title">Aim for 500+ connections</div><div class="tip-body">Connect with people in roles you want, recruiters at target companies, and peers learning alongside you. A short personal note with a connection request has a much higher acceptance rate than a blank one.</div></div>
+      <div class="tip-card"><div class="tip-title">Use the Featured section</div><div class="tip-body">Pin your GitHub portfolio, a live Tableau dashboard, or a write-up of your best project. It's the first thing a recruiter looks at after your headline.</div></div>
+    </div>
+
+    <!-- JOB BOARDS -->
+    <div class="hub-section">
+      <div class="hub-sec-title">Job boards</div>
+      <div class="hub-sec-sub">A curated list of job boards worth bookmarking, specific to data roles and mission-driven work.</div>
+
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <button id="btn-general" onclick="switchBoards('general')" style="font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;border:none;cursor:pointer;font-family:var(--sans);background:#0d6e6e;color:#ffffff;transition:all .15s">General data roles</button>
+        <button id="btn-mission" onclick="switchBoards('mission')" style="font-size:12px;font-weight:500;padding:7px 16px;border-radius:20px;border:1px solid #dce8dc;cursor:pointer;font-family:var(--sans);background:transparent;color:#5a6a5a;transition:all .15s">Fellowships &amp; mission-driven</button>
+      </div>
+
+      <div id="boards-general" class="board-list">
+        <div class="board-item"><div><div class="board-name"><a href="https://www.datajobs.com" target="_blank" style="color:var(--text);text-decoration:none">DataJobs.com</a></div><div class="board-desc">Data-specific board across all roles, analyst, scientist, engineer.</div></div><span class="board-tag">Data</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://icrunchdata.com" target="_blank" style="color:var(--text);text-decoration:none">icrunchdata</a></div><div class="board-desc">Curated data and analytics roles with less noise than general boards.</div></div><span class="board-tag">Data</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.dice.com" target="_blank" style="color:var(--text);text-decoration:none">Dice</a></div><div class="board-desc">Tech-focused job board with strong data and engineering listings.</div></div><span class="board-tag">Tech</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://remoterocketship.com/jobs/data-scientist" target="_blank" style="color:var(--text);text-decoration:none">RemoteRocketship</a></div><div class="board-desc">Remote-only data roles. Good for flexibility-focused searches.</div></div><span class="board-tag">Remote</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.dataanalyst.com" target="_blank" style="color:var(--text);text-decoration:none">DataAnalyst.com</a></div><div class="board-desc">Analyst-specific listings and career resources in one place.</div></div><span class="board-tag">Analyst</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://aijobs.net" target="_blank" style="color:var(--text);text-decoration:none">AI Jobs</a></div><div class="board-desc">AI and ML-specific roles across companies of all sizes.</div></div><span class="board-tag">AI / ML</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.usajobs.gov" target="_blank" style="color:var(--text);text-decoration:none">USAJobs.gov</a></div><div class="board-desc">The official federal government job board. Filter by data, research, and IT roles.</div></div><span class="board-tag">Government</span></div>
+      </div>
+
+      <div id="boards-mission" class="board-list" style="display:none">
+        <div class="board-item"><div><div class="board-name"><a href="https://techjobsforgood.com" target="_blank" style="color:var(--text);text-decoration:none">Tech Jobs for Good</a></div><div class="board-desc">Mission-driven tech and data roles across nonprofits, government, and social enterprises.</div></div><span class="board-tag">Mission-driven</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.adf.uchicago.edu/" target="_blank" style="color:var(--text);text-decoration:none">UChicago Applied Data Fellowship</a></div><div class="board-desc">Fellowship placing data practitioners in public sector and civic organizations in Chicago.</div></div><span class="board-tag">Fellowship</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.publicsolutionsjobs.com" target="_blank" style="color:var(--text);text-decoration:none">Public Solutions Jobs</a></div><div class="board-desc">Jobs in government, nonprofits, and public policy, including data and analytics roles.</div></div><span class="board-tag">Public sector</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.educationpioneers.org" target="_blank" style="color:var(--text);text-decoration:none">Education Pioneers</a></div><div class="board-desc">Fellowship and job board for data, strategy, and operations roles in education.</div></div><span class="board-tag">Education</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.idealist.org" target="_blank" style="color:var(--text);text-decoration:none">Idealist</a></div><div class="board-desc">Nonprofit and social impact job board. Filter by data, research, or technology roles.</div></div><span class="board-tag">Nonprofit</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://sdp.cepr.harvard.edu" target="_blank" style="color:var(--text);text-decoration:none">Harvard Strategic Data Project</a></div><div class="board-desc">Fellowship placing data analysts in education agencies across the country.</div></div><span class="board-tag">Fellowship</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.zintellect.com" target="_blank" style="color:var(--text);text-decoration:none">Zintellect</a></div><div class="board-desc">STEM fellowship and internship opportunities across federal agencies and national labs.</div></div><span class="board-tag">Government</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.edsurge.com/jobs" target="_blank" style="color:var(--text);text-decoration:none">EdSurge Jobs</a></div><div class="board-desc">Data, research, and technology roles in edtech and education organizations.</div></div><span class="board-tag">EdTech</span></div>
+      </div>
+    </div>
+
+
+    <div class="coming-soon-block">
+      <h3>Track your progress</h3>
+      <p>Sign in to save your roadmap progress and pick up where you left off.</p>
+      <span class="cs-badge">Coming soon</span>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── QUIZ DATA ──────────────────────────────────── */
+const QS=[
+  {t:"When you picture a typical work day, what sounds most appealing?",c:[{l:"Answering business questions by digging through data",v:"analyst"},{l:"Running experiments and building predictive models",v:"science"},{l:"Training and deploying machine learning models into products",v:"ml"},{l:"Designing the systems that store and move data reliably",v:"engineer"}]},
+  {t:"Which of these feels most like a natural strength?",c:[{l:"Storytelling, turning numbers into clear narratives",v:"analyst"},{l:"Math and statistics, I enjoy working with formulas",v:"science"},{l:"Pattern recognition, spotting signals others miss",v:"ml"},{l:"Systems thinking, designing things that scale",v:"engineer"}]},
+  {t:"What output would make you feel most proud?",c:[{l:"A dashboard that helped a team make a better decision",v:"analyst"},{l:"A statistically significant research finding",v:"science"},{l:"A model running live in a product used by thousands",v:"ml"},{l:"A data pipeline that runs reliably at massive scale",v:"engineer"}]},
+  {t:"What sounds least appealing to you?",c:[{l:"Presenting findings to non-technical stakeholders regularly",v:"xa"},{l:"Debugging infrastructure and writing lots of SQL",v:"xe"},{l:"Heavy math, gradients, probability theory, linear algebra",v:"xm"},{l:"Open-ended research with no clear deliverable",v:"xs"}]},
+  {t:"Which tool set sounds most interesting to learn?",c:[{l:"SQL, Tableau / Power BI, Excel, and BI tools",v:"analyst"},{l:"Python or R, Jupyter, and statistical packages",v:"science"},{l:"Python, PyTorch / TensorFlow, cloud ML platforms",v:"ml"},{l:"Spark, Airflow, dbt, AWS / GCP / Azure",v:"engineer"}]},
+  {t:"Which industry excites you most?",c:[{l:"Finance, marketing, or business operations",v:"analyst"},{l:"Healthcare, academia, or scientific research",v:"science"},{l:"Tech startups or AI-first products",v:"ml"},{l:"Large-scale platforms, streaming, e-commerce, logistics",v:"engineer"}]},
+  {t:"What is your main goal right now?",c:[{l:"Land a stable, well-paying role as quickly as possible",v:"analyst"},{l:"Go deep into statistics and domain expertise",v:"science"},{l:"Work on cutting-edge AI and ML problems",v:"ml"},{l:"Build a highly technical, scalable engineering career",v:"engineer"}]}
+];
+const AV={xa:"analyst",xe:"engineer",xm:"ml",xs:"science"};
+const META={
+  analyst:{name:"Data Analyst",icon:"📊",cls:"g",ac:"#1a6b4a",tagline:"Turn data into decisions.",desc:"You're drawn to clarity, communication, and business impact. Data analysts are the bridge between raw data and smart decisions, in demand across every industry.",time:"4–8 months",sal:"$65k–$110k",dem:"Very High"},
+  science:{name:"Data Scientist",icon:"🔬",cls:"b",ac:"#1a3d6b",tagline:"Extract insight through statistics.",desc:"You enjoy math, open-ended problems, and rigorous thinking. Data scientists blend statistical knowledge with code to build models and run experiments that drive strategy.",time:"6–12 months",sal:"$90k–$140k",dem:"High"},
+  ml:{name:"ML / AI Engineer",icon:"🤖",cls:"p",ac:"#4a2d8f",tagline:"Build systems that learn.",desc:"You want to work at the frontier. ML engineers design, train, and ship machine learning models into products. Strong Python skills and math foundations are key.",time:"8–14 months",sal:"$110k–$180k",dem:"Very High"},
+  engineer:{name:"Data Engineer",icon:"⚙️",cls:"a",ac:"#8f5a1a",tagline:"Build the infrastructure of data.",desc:"You think in systems and want to build things that last. Data engineers design the pipelines, warehouses, and platforms that every other data role depends on.",time:"6–12 months",sal:"$100k–$160k",dem:"High"}
+};
+const HEADLINES={analyst:"You're built to be a Data Analyst.",science:"Data Science is your natural fit.",ml:"ML & AI Engineering is your path.",engineer:"Data Engineering is calling your name."};
+const SUBS={analyst:"Your blend of communication skills and curiosity makes you ideal for translating data into business value.",science:"Your comfort with math and open-ended problems points toward research-driven data work.",ml:"You're drawn to building things that learn, model-building and AI products are your sweet spot.",engineer:"You're a systems thinker who wants to build the infrastructure that powers everything else."};
+
+/* ── SECTOR DATA ────────────────────────────────── */
+const SECTORS={
+  tech:{
+    label:"Tech & Startups",
+    analyst:{
+      mindset:"In tech, analysts are embedded in product teams and expected to move fast. The culture prizes experimentation, you'll run A/B tests constantly, and decisions get made in days, not months. An outlier in your data is usually a bug or a product change, not a discovery. The default assumption is that data should drive every decision, which means you'll be asked questions constantly. Get comfortable saying 'the data suggests X, but here's what we don't know yet.'",
+      context:"You'll work with product telemetry, user behavior data, funnel metrics, and retention curves. Tools like Mixpanel, Amplitude, and Looker are common. Python and SQL are both expected. Dashboards are often self-serve, your job is to build infrastructure that lets others answer their own questions.",
+      tools:["Python","SQL","Looker / Tableau","Mixpanel / Amplitude","dbt","Airflow"],
+      datasets:"Practice with: Kaggle's e-commerce datasets, public product analytics data, or build your own event-tracking dataset using a free Mixpanel account.",
+      projects:"Build a user retention dashboard. Analyze a funnel conversion rate. Run a simulated A/B test and write up the results as if presenting to a product manager."
+    },
+    science:{
+      mindset:"Tech data scientists often function as embedded researchers within product or growth teams. You're expected to combine statistical rigor with product intuition, understanding why metrics move, not just that they moved. Causality matters more than correlation. 'We ran an experiment and it lifted retention by 3%' is far more valuable than 'retention correlates with feature usage.'",
+      context:"Experimentation is central. You'll design and analyze A/B tests, build recommendation systems, work on search ranking, or develop ML features that ship into products. Python is universal. SQL is assumed. Jupyter notebooks are your workspace.",
+      tools:["Python","SQL","Scikit-learn","Spark","Jupyter","Airflow"],
+      datasets:"Practice with: the MovieLens dataset (recommendations), Kaggle's user behavior datasets, or any public product metrics dataset.",
+      projects:"Build a recommendation engine. Run a proper A/B test analysis with power calculations. Build a churn prediction model and present findings as a product recommendation."
+    },
+    ml:{
+      mindset:"In tech, ML engineers work at the intersection of research and product. You're expected to take a model from a research paper or prototype and make it actually work in production, handling scale, latency, data drift, and failure gracefully. Speed matters. The question is always: can we ship this, and what happens when it breaks?",
+      context:"You'll work on recommendation systems, search ranking, fraud detection, NLP features, or computer vision, depending on the company. Python is universal. Cloud infrastructure (AWS, GCP, Azure) is assumed. MLOps tooling (MLflow, Kubeflow, SageMaker) is increasingly required.",
+      tools:["Python","PyTorch / TensorFlow","Kubernetes","MLflow","FastAPI","Docker","AWS / GCP"],
+      datasets:"Practice with: Kaggle competitions, Hugging Face datasets, or build your own data pipeline from a public API.",
+      projects:"Build a recommendation system and deploy it as an API. Fine-tune a language model and ship it to Hugging Face Spaces. Build an end-to-end ML pipeline with experiment tracking."
+    },
+    engineer:{
+      mindset:"In tech, data engineers are infrastructure builders. The culture expects you to think about scale from day one, pipelines that work for 1GB should work for 1TB. You're building the plumbing that the rest of the data team depends on, which means reliability and documentation matter as much as performance.",
+      context:"You'll work with event streaming (Kafka), batch processing (Spark), cloud data warehouses (BigQuery, Snowflake), and orchestration tools (Airflow, Prefect). The modern data stack (dbt + cloud warehouse + Airflow) is common at growth-stage and enterprise tech companies.",
+      tools:["Python","Spark","Kafka","Airflow","dbt","BigQuery / Snowflake","Docker","Terraform"],
+      datasets:"Practice with: NYC Taxi data, public event logs, or build a pipeline that ingests from a public API and loads to BigQuery.",
+      projects:"Build an end-to-end batch pipeline. Add streaming ingestion with Kafka. Containerize everything with Docker and add CI/CD."
+    }
+  },
+  finance:{
+    label:"Finance & Fintech",
+    analyst:{
+      mindset:"Finance analysts live in a world where being wrong has real consequences, for customers, for the business, and sometimes legally. Precision matters more than speed. An outlier in financial data is almost never ignored, it's either a fraud signal, a data quality issue, or a market event worth investigating. You'll develop a healthy skepticism toward your own analyses: always ask what could make this number wrong.",
+      context:"You'll work with transactional data, P&L statements, market data, and customer financial histories. Excel is still widely used and expected. SQL is essential. Python is increasingly common, especially in fintech. Reports and dashboards are often used in regulatory filings or executive presentations, accuracy is non-negotiable.",
+      tools:["SQL","Excel","Python","Power BI / Tableau","Bloomberg Terminal (large firms)"],
+      datasets:"Practice with: Kaggle's credit card fraud dataset, Yahoo Finance data via yfinance (Python), SEC EDGAR filings, or any public stock price dataset.",
+      projects:"Build a credit risk analysis. Create a P&L dashboard. Analyze transaction data for anomalies. Work with time-series stock data and build a simple forecasting model."
+    },
+    science:{
+      mindset:"Finance data scientists build models where the stakes are high and explainability matters. A black-box model that predicts credit defaults might perform well, but if you can't explain why it denied someone's loan, you have a regulatory problem. You'll need to balance model performance with interpretability. Risk thinking is central: what's the cost of a false positive vs. a false negative?",
+      context:"Common areas: credit scoring, fraud detection, algorithmic trading, risk modeling, customer lifetime value. Python and R are both used. Time-series analysis is a core skill, financial data is almost always sequential. Statistical rigor is expected and often reviewed by compliance teams.",
+      tools:["Python","R","SQL","Statsmodels","Scikit-learn","Spark"],
+      datasets:"Practice with: Kaggle's credit scoring datasets, Yahoo Finance via yfinance, Federal Reserve Economic Data (FRED), or SEC filings.",
+      projects:"Build an interpretable credit risk model (logistic regression with clear feature explanations). Do a time-series forecast of a financial metric. Analyze transaction patterns to flag potential fraud."
+    },
+    ml:{
+      mindset:"ML in finance requires extreme caution around model risk. Every model that influences financial decisions needs to be validated, documented, and monitored, regulators may ask to review it. You'll spend more time on model governance and less time on cutting-edge architectures than in tech. Explainability, robustness, and auditability are as important as accuracy.",
+      context:"Common applications: fraud detection, algorithmic trading signals, risk assessment, document processing (NLP for contracts), customer segmentation. Python dominates in fintech; legacy finance firms may use more R or even SAS. Cloud adoption is growing but many firms still run on-premise.",
+      tools:["Python","SQL","Scikit-learn","XGBoost","SHAP (explainability)","Spark","Docker"],
+      datasets:"Practice with: public fraud detection datasets (Kaggle), FRED macroeconomic data, SEC EDGAR for NLP practice on financial documents.",
+      projects:"Build an explainable fraud detection model using SHAP. Build a document classifier for financial filings. Create a backtesting framework for a simple trading signal."
+    },
+    engineer:{
+      mindset:"Data engineering in finance is heavily influenced by regulation and auditability. Every pipeline needs to be traceable, you need to know exactly where data came from, how it was transformed, and when. Data lineage isn't optional. Performance matters too: trading firms care deeply about latency. Reliability is paramount, a failed pipeline before market open is a serious incident.",
+      context:"You'll work with real-time data feeds, historical market data, transaction logs, and regulatory reporting pipelines. Both batch and streaming architectures are common. Data quality and governance tooling (data catalogs, lineage tracking) are more mature here than in most other sectors.",
+      tools:["Python","SQL","Kafka","Spark","Airflow","dbt","Snowflake / Redshift","Docker"],
+      datasets:"Practice with: public market data APIs (Alpha Vantage, Yahoo Finance), Kaggle financial datasets, or build a pipeline that ingests FRED data.",
+      projects:"Build a real-time data ingestion pipeline with Kafka. Design a regulatory reporting pipeline with full data lineage. Build a data quality monitoring system for a financial dataset."
+    }
+  },
+  healthcare:{
+    label:"Healthcare & Research",
+    analyst:{
+      mindset:"In healthcare and research, outliers are often the most important data points in the dataset. A rare adverse event, an unexpected lab result, a patient who responds differently to treatment, these aren't noise to be filtered out. They're potentially the most important signal. You'll also work with missing data constantly, and learning to handle it thoughtfully (rather than dropping rows) is critical. The stakes of being wrong are real, decisions affect patient care.",
+      context:"You'll work with electronic health records (EHR), claims data, survey data, and clinical trial results. HIPAA compliance shapes everything, data access is restricted, de-identification is required, and you'll often work in secure environments. R is common in research settings; Python is more common in health tech. Excel and SPSS still appear at some organizations.",
+      tools:["R","Python","SQL","REDCap","SAS (some settings)","Excel"],
+      datasets:"Practice with: MIMIC-III (de-identified ICU data, requires credentialing), CMS Medicare data, CDC public health datasets, or any open clinical trial data.",
+      projects:"Analyze a public health dataset and visualize trends over time. Build a patient readmission risk analysis. Work with survey data and run appropriate statistical tests. Write findings in the style of a research summary."
+    },
+    science:{
+      mindset:"Research data scientists are trained to be skeptical, of their data, their models, and their conclusions. Effect sizes matter more than p-values. A model with 90% accuracy on an imbalanced clinical dataset might be worthless. You'll ask: what's the baseline? What's the cost of a false negative (missing a diagnosis) vs. a false positive (unnecessary treatment)? Reproducibility is a professional value, not just a technical requirement.",
+      context:"You'll work on clinical prediction models, genomics, epidemiology, health outcomes research, or public health analysis. R and Python are both widely used, R dominates academic research, Python is stronger in health tech. Publishing and documentation matter: your work may be peer-reviewed.",
+      tools:["R","Python","SQL","Jupyter","RMarkdown","Stan / BRMS (Bayesian)","Scikit-learn"],
+      datasets:"Practice with: MIMIC-III, CDC BRFSS survey data, NIH public datasets, or Kaggle's healthcare datasets.",
+      projects:"Reproduce a published clinical prediction model. Build a survival analysis (time-to-event) model. Run a proper power analysis for a hypothetical clinical trial. Write your findings as a methods section."
+    },
+    ml:{
+      mindset:"ML in healthcare carries the highest stakes of any sector. A model that misclassifies a tumor or recommends the wrong medication can harm patients. FDA regulation applies to some medical AI. You'll need to think deeply about bias, training data that underrepresents certain demographics leads to models that perform worse for those groups, which has real equity implications.",
+      context:"Applications include: medical image classification (X-rays, pathology slides), clinical NLP (extracting information from notes), predictive risk scoring, drug discovery. Python and PyTorch dominate. Explainability is not optional, clinicians need to understand why a model makes a recommendation.",
+      tools:["Python","PyTorch","Scikit-learn","SHAP","FastAPI","MONAI (medical imaging)","SQL"],
+      datasets:"Practice with: NIH Chest X-ray dataset, MIMIC-III clinical notes, Kaggle's medical imaging datasets.",
+      projects:"Build a medical image classifier with explainability. Build an NLP pipeline to extract diagnoses from clinical notes. Build a patient risk stratification model with bias analysis across demographic groups."
+    },
+    engineer:{
+      mindset:"Healthcare data engineering is shaped by compliance more than any other sector. HIPAA, HITECH, and HL7/FHIR standards govern how health data is stored, transmitted, and accessed. Every pipeline needs access controls, audit logging, and encryption. You'll spend more time on governance and security than in other sectors, that's not overhead, it's the job.",
+      context:"You'll work with EHR systems (Epic, Cerner), claims data, HL7 FHIR APIs, and population health platforms. Real-time data is increasingly important for clinical decision support. Cloud adoption is growing but subject to BAA (Business Associate Agreement) requirements.",
+      tools:["Python","SQL","HL7 FHIR","Airflow","Spark","dbt","AWS HealthLake / Azure Health Data Services"],
+      datasets:"Practice with: Synthea (synthetic patient data), CMS public claims data, or HL7 FHIR sample datasets.",
+      projects:"Build a pipeline that ingests and normalizes Synthea patient data. Design a HIPAA-compliant data architecture diagram. Build a data quality pipeline for clinical data with appropriate handling of missing values."
+    }
+  },
+  government:{
+    label:"Government, Public Sector & Education",
+    analyst:{
+      mindset:"Government and education analysts work with data that represents real people, students, citizens, communities. This shapes how you think about everything. Equity is a lens, not an afterthought: you'll ask 'who does this policy help, and who might it leave behind?' Transparency matters, your methods and findings may be subject to public records requests or legislative review. Move thoughtfully, not fast.",
+      context:"You'll work with administrative data, survey data, program outcome data, and public records. Budgets and timelines are slower than in the private sector. Decision-making cycles are longer, a good analysis might inform a policy that takes years to implement. Excel is very common; R and Python are growing. Tableau and Power BI are used for public-facing dashboards. Open data portals are your playground.",
+      tools:["Excel","SQL","R","Python","Tableau / Power BI","SPSS (some agencies)"],
+      datasets:"Practice with: data.gov, Census Bureau data (ACS), BLS public data, your state's open data portal, NCES education data, or any municipal data portal.",
+      projects:"Analyze Census data to profile a community. Build a public-facing dashboard showing program outcomes. Evaluate a simulated intervention's effect on an outcome (e.g., graduation rates, employment). Write findings in plain language as if for a policy brief."
+    },
+    science:{
+      mindset:"Public sector data scientists often work on social problems where the data is messy, incomplete, and politically sensitive. You'll need strong causal thinking, correlation is especially dangerous when policy decisions are at stake. Stakeholders may not have a technical background, so communicating uncertainty honestly and clearly is part of the job. Ethical implications of modeling (predictive policing, benefit eligibility algorithms) deserve serious consideration.",
+      context:"Applications include: program evaluation, labor market analysis, educational outcome prediction, public health surveillance, resource allocation. R is common in research-oriented agencies and universities. Python is growing. Academic writing and policy memo formats are both relevant. You may work under IRB (Institutional Review Board) requirements.",
+      tools:["R","Python","SQL","Stata (some agencies)","Jupyter","RMarkdown"],
+      datasets:"Practice with: IPUMS (census microdata), NLSY (longitudinal surveys), NCES datasets, state education data portals, or any publicly available program evaluation dataset.",
+      projects:"Run a difference-in-differences analysis on a policy intervention. Analyze educational outcome disparities across demographic groups. Write a program evaluation report in policy memo format. Replicate a published government study using public data."
+    },
+    ml:{
+      mindset:"ML in government requires careful attention to fairness, accountability, and transparency, often called FAT or RAI (Responsible AI). Algorithms that affect access to services (housing, benefits, parole) have been shown to perpetuate or amplify existing inequities. You'll need to audit models for bias, be able to explain decisions to non-technical stakeholders, and understand the legal frameworks around automated decision-making.",
+      context:"Applications include: benefits eligibility, fraud detection in government programs, natural language processing for public records, predictive resource allocation, and education analytics. Procurement and approval processes are slower than in the private sector. Open source is preferred. Python is dominant.",
+      tools:["Python","Scikit-learn","Fairlearn (bias auditing)","SHAP","SQL","R"],
+      datasets:"Practice with: ProPublica's COMPAS dataset (algorithmic fairness), NCES data, public benefits program data, or any government administrative dataset.",
+      projects:"Audit a model for demographic bias using Fairlearn. Build a plain-language explanation system for an algorithmic decision. Analyze disparities in a public program dataset. Write a policy brief summarizing your model's findings and limitations."
+    },
+    engineer:{
+      mindset:"Government data engineering operates in an environment of legacy systems, strict procurement rules, and a mandate for transparency. You may work with systems that are decades old. Data sharing across agencies is often legally and technically complicated. Your work needs to be documented thoroughly, other people's careers and public trust depend on systems that work reliably and can be audited.",
+      context:"You'll work with administrative databases, open data portals, inter-agency data sharing agreements, and increasingly cloud environments (FedRAMP-compliant). Python and SQL are the core languages. Open source tools are preferred where possible. Processes are slower but stability and documentation are valued over novelty.",
+      tools:["Python","SQL","PostgreSQL","Airflow","dbt","FedRAMP cloud (AWS GovCloud / Azure Government)","Socrata (open data)"],
+      datasets:"Practice with: data.gov, Census APIs, your state's open data portal, or any public agency dataset with a defined schema.",
+      projects:"Build a pipeline that ingests and normalizes data from a public API (e.g., Census, BLS). Design a data architecture for a multi-agency data sharing scenario. Build a data quality pipeline with audit logging. Publish a clean dataset with full documentation to a public repository."
+    }
+  }
+};
+
+/* ── ROADMAP DATA ────────────────────────────────── */
+const RM={
+  analyst:{
+    phases:[
+      {name:"Foundations",lbl:"Phase 1",time:"4–6 weeks",
+       desc:"Before writing a line of code, it helps to understand what data analysis actually is and how data is structured. This phase covers the core concepts that underpin everything else, working with spreadsheets, understanding distributions, and developing a habit of questioning what the data is actually telling you.",
+       topics:["Spreadsheets & formulas","Descriptive statistics","Data types & structures","Data cleaning basics","Asking good questions of data"],
+       resources:[{name:"Google Sheets / Excel training",url:"https://support.google.com/docs",note:"Official docs and tutorials"},{name:"Khan Academy, Statistics & Probability",url:"https://www.khanacademy.org/math/statistics-probability",note:"Free, self-paced"},{name:"Seeing Theory",url:"https://seeing-theory.brown.edu",note:"Beautiful visual introduction to probability and statistics"},{name:"Visual Stats",url:"https://visualstats.bryer.org",note:"Interactive statistical visualizations, great for building intuition"}]},
+      {name:"SQL & Databases",lbl:"Phase 2",time:"4–6 weeks",
+       desc:"SQL is the single most important skill for a data analyst. It's how you pull data out of databases, filter it, join tables together, and summarize it into something useful. Every company stores data in a database, this is how you access it.",
+       topics:["Querying & filtering","Aggregations & GROUP BY","Joins & relationships","Subqueries & CTEs","Window functions"],
+       resources:[{name:"Mode SQL Tutorial",url:"https://mode.com/sql-tutorial/",note:"Hands-on, well-structured, free"},{name:"SQLZoo",url:"https://sqlzoo.net",note:"Interactive SQL exercises in the browser"}]},
+      {name:"Data Visualization",lbl:"Phase 3",time:"3–5 weeks",
+       desc:"Pulling data is only half the job. A good analyst knows how to present findings in a way that is clear, honest, and easy to act on. This phase is about learning which charts work for which situations, and how to build dashboards that tell a story.",
+       topics:["Choosing the right chart type","Dashboard design principles","Tableau or Power BI basics","Communicating findings clearly"],
+       resources:[{name:"Tableau Public, Free Training",url:"https://www.tableau.com/learn/training",note:"Official Tableau video training, free"},{name:"Tableau Data Viz Course",url:"https://www.youtube.com/playlist?list=PLoyECfvEFOjYIEUwDV1_SIDlcTZPm7kg0",note:"YouTube playlist, full Tableau course, free"},{name:"Guy in a Cube",url:"https://www.youtube.com/@GuyInACube",note:"YouTube, Power BI and data viz tutorials, very practical"},{name:"From Data to Viz",url:"https://www.data-to-viz.com",note:"Interactive chart selection guide"}]},
+      {name:"Python for Analysis",lbl:"Phase 4",time:"5–7 weeks",
+       desc:"Python opens up automation, more complex analysis, and eventually machine learning. For analysts, the focus is on Pandas for data manipulation and Matplotlib or Seaborn for charting. You need to be comfortable enough to work with data programmatically, not to build software.",
+       topics:["Python basics","Pandas for data manipulation","Exploratory data analysis","Matplotlib & Seaborn","Jupyter Notebooks"],
+       resources:[{name:"Kaggle Learn, Python",url:"https://www.kaggle.com/learn/python",note:"Free, certificate included"},{name:"Kaggle Learn, Pandas",url:"https://www.kaggle.com/learn/pandas",note:"Free, the most practical Pandas intro out there"},{name:"Excel Data Analysis Full Course",url:"https://www.youtube.com/results?search_query=excel+data+analysis+full+course",note:"YouTube, bridges spreadsheet thinking into programmatic data analysis"}]},
+      {name:"Putting It Together",lbl:"Phase 5",time:"4–6 weeks",
+       desc:"This phase is about building something you can show someone. An end-to-end project that starts with a question, pulls real data, cleans and analyzes it, and ends with a clear finding. This is the work that gets you interviews.",
+       topics:["Defining a project scope","Working with real-world messy data","Combining SQL + Python + visualization","Presenting findings","GitHub for portfolio hosting"],
+       resources:[{name:"Kaggle Datasets",url:"https://www.kaggle.com/datasets",note:"Thousands of real datasets to work with"},{name:"GitHub Getting Started",url:"https://docs.github.com/en/get-started",note:"Host your portfolio projects here"}]}
+    ],
+    projects:[
+      {name:"Explore a public dataset",diff:"s",desc:"Download any CSV from Kaggle or data.gov. Clean it up, calculate summary statistics, and write a short summary of what you found and what questions it raises."},
+      {name:"SQL business questions",diff:"s",desc:"Use a sample database like Northwind or Chinook. Write 10 SQL queries that answer real business questions, top customers, monthly revenue, product performance."},
+      {name:"Build a dashboard",diff:"m",desc:"Take a public dataset, query it with SQL, and build a Tableau Public or Looker Studio dashboard with at least 3 views. Publish it so you have a live link."},
+      {name:"End-to-end analysis",diff:"m",desc:"Pick a topic you find genuinely interesting. Find the data, clean it, analyze it in Python, visualize your findings, and write a summary as if presenting to a stakeholder. This is your portfolio centerpiece."}
+    ],
+    resources:[
+      {free:true,name:"Google Data Analytics Certificate",where:"Coursera (audit free)",desc:"Covers SQL, spreadsheets, Tableau, and R. Widely recognized by employers."},
+      {free:true,name:"Alex the Analyst, YouTube",where:"YouTube",desc:"Free full analyst curriculum: SQL, Excel, Power BI, Tableau, and Python."},
+      {free:true,name:"Kaggle Learn",where:"kaggle.com/learn",desc:"Free short courses on Python, Pandas, SQL, and data visualization."},
+      {free:false,name:"Storytelling with Data",where:"Cole Nussbaumer Knaflic",desc:"The best book on making charts that actually communicate."},
+      {free:false,name:"SQL for Data Analysis",where:"Cathy Tanimura, O'Reilly",desc:"Practical, real-world SQL patterns for analytical work."}
+    ]
+  },
+  science:{
+    phases:[
+      {name:"Math & Statistics",lbl:"Phase 1",time:"6–8 weeks",
+       desc:"Data science is applied statistics. Before building models, you need a working understanding of probability, distributions, and how to test whether something you observe is real or just noise. This phase takes time, don't rush it.",
+       topics:["Descriptive statistics","Probability & distributions","Hypothesis testing","Correlation vs. causation","Linear algebra concepts"],
+       resources:[{name:"Khan Academy, Statistics & Probability",url:"https://www.khanacademy.org/math/statistics-probability",note:"Free and thorough"},{name:"3Blue1Brown, Essence of Linear Algebra",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab",note:"Best visual intro to linear algebra"},{name:"3Blue1Brown, Essence of Calculus",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr",note:"Free YouTube series, build real calculus intuition visually"},{name:"Seeing Theory",url:"https://seeing-theory.brown.edu",note:"Visual, interactive probability and statistics"},{name:"StatQuest with Josh Starmer",url:"https://www.youtube.com/@statquest",note:"YouTube, the clearest stats and ML explanations anywhere"}]},
+      {name:"Python & Data Wrangling",lbl:"Phase 2",time:"5–7 weeks",
+       desc:"Python is the primary language of data science. This phase focuses on the core libraries, NumPy for computation, Pandas for data manipulation, Matplotlib/Seaborn for visualization, and practicing on real datasets.",
+       topics:["Python fundamentals","NumPy","Pandas","Exploratory data analysis","Data cleaning & feature understanding"],
+       resources:[{name:"Kaggle Learn, Python",url:"https://www.kaggle.com/learn/python",note:"Free"},{name:"Kaggle Learn, Pandas",url:"https://www.kaggle.com/learn/pandas",note:"Free, practical, well-paced"}]},
+      {name:"Machine Learning",lbl:"Phase 3",time:"6–8 weeks",
+       desc:"The core of data science. You'll learn how different types of models work, when to use them, and how to evaluate them honestly. The goal isn't to memorize algorithms, it's to build intuition for what's happening.",
+       topics:["Supervised vs. unsupervised learning","Regression & classification","Model evaluation & validation","Overfitting & regularization","Feature engineering"],
+       resources:[{name:"fast.ai, Practical Deep Learning",url:"https://course.fast.ai",note:"Free, world-class, top-down approach"},{name:"StatQuest with Josh Starmer",url:"https://www.youtube.com/@statquest",note:"The clearest ML and stats explanations on YouTube"},{name:"Coursera, Machine Learning Specialization",url:"https://www.coursera.org/specializations/machine-learning-introduction",note:"Andrew Ng's ML course, audit free, industry recognized"},{name:"An Introduction to Statistical Learning",url:"https://www.statlearning.com",note:"Free PDF, covers all the core ML methods with statistical depth"}]},
+      {name:"Experimentation & Analysis",lbl:"Phase 4",time:"4–6 weeks",
+       desc:"A large part of data science at most organizations is running and analyzing experiments. This phase covers how to design a proper test, calculate sample sizes, and interpret results without being fooled by randomness.",
+       topics:["A/B testing design","Hypothesis testing in practice","Confidence intervals","Statistical power & sample size","Communicating results"],
+       resources:[{name:"Evan Miller, A/B Testing Tools",url:"https://www.evanmiller.org/ab-testing/",note:"Free calculator and explainer"},{name:"Khan Academy, Inference",url:"https://www.khanacademy.org/math/statistics-probability/confidence-intervals-one-sample",note:"Free"},{name:"StatQuest, Hypothesis Testing",url:"https://www.youtube.com/watch?v=0oc49DyA3hU",note:"YouTube, clearest explanation of p-values and testing"},{name:"Seeing Theory, Frequentist Inference",url:"https://seeing-theory.brown.edu/frequentist-inference/index.html",note:"Visual and interactive, great for building intuition around inference"}]},
+      {name:"Specialization & Portfolio",lbl:"Phase 5",time:"6–8 weeks",
+       desc:"The data scientists who stand out have depth in a domain. Pick an area, NLP, healthcare, policy, finance, and go deeper. Build 1–2 projects that show genuine understanding rather than surface-level model-running.",
+       topics:["Choosing a specialization","End-to-end ML projects","Communicating findings clearly","Kaggle competitions","Technical writing"],
+       resources:[{name:"Kaggle Competitions",url:"https://www.kaggle.com/competitions",note:"Real datasets, real problems"},{name:"Towards Data Science",url:"https://towardsdatascience.com",note:"Read how practitioners write about their work"}]}
+    ],
+    projects:[
+      {name:"Statistical exploration",diff:"s",desc:"Pick any public dataset with at least 5 variables. Produce a full statistical summary, distributions, correlations, outliers. Write up what the data suggests and what questions remain."},
+      {name:"Predictive model with writeup",diff:"m",desc:"Build a regression or classification model on a real dataset. Try at least 3 approaches, evaluate them honestly, and write a clear explanation of why you chose your final model and what its limitations are."},
+      {name:"A/B test analysis",diff:"m",desc:"Use a real or simulated A/B test dataset. Design the test properly, run the analysis, and write a conclusion as if presenting to a decision-maker."},
+      {name:"Domain deep-dive project",diff:"m",desc:"Build an end-to-end project in your chosen domain. Go deep on the data, the modeling choices, and the interpretation. Write it up showing that you understand the subject matter, not just the code."}
+    ],
+    resources:[
+      {free:true,name:"fast.ai, Practical Deep Learning",where:"fast.ai",desc:"Free and genuinely world-class. Builds things that work from day one."},
+      {free:true,name:"StatQuest with Josh Starmer",where:"YouTube",desc:"The best statistics and ML explanations on the internet."},
+      {free:true,name:"Kaggle Learn",where:"kaggle.com/learn",desc:"Free courses on ML, feature engineering, and model validation."},
+      {free:false,name:"Hands-On Machine Learning",where:"Aurélien Géron, O'Reilly (3rd ed.)",desc:"The most practical ML book available."},
+      {free:false,name:"An Introduction to Statistical Learning",where:"James et al., free PDF at statlearning.com",desc:"The gold-standard statistics and ML textbook."}
+    ]
+  },
+  ml:{
+    phases:[
+      {name:"Python & Math Foundations",lbl:"Phase 1",time:"6–8 weeks",
+       desc:"ML engineering requires more programming depth than most data roles. This phase is about building solid Python skills and developing intuition for the math that underpins machine learning. You don't need a PhD, but you need to understand what's happening under the hood.",
+       topics:["Python (intermediate to advanced)","NumPy & matrix operations","Linear algebra intuition","Calculus concepts (gradients)","Probability basics"],
+       resources:[{name:"3Blue1Brown, Essence of Linear Algebra",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab",note:"Free, visual, essential"},{name:"3Blue1Brown, Essence of Calculus",url:"https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr",note:"Free, build intuition for gradients and derivatives"},{name:"StatQuest with Josh Starmer",url:"https://www.youtube.com/@statquest",note:"YouTube, probability and stats foundations explained clearly"},{name:"Paul's Online Math Notes",url:"https://tutorial.math.lamar.edu",note:"Free, thorough calculus reference at your own pace"}]},
+      {name:"Classical Machine Learning",lbl:"Phase 2",time:"5–6 weeks",
+       desc:"Classical ML still powers a huge portion of production systems. Understanding how gradient boosting, decision trees, and regularized regression work, and when to reach for each, is foundational before moving into neural networks.",
+       topics:["Supervised learning algorithms","Model evaluation & cross-validation","Regularization","Gradient boosting (XGBoost, LightGBM)","Scikit-learn pipelines"],
+       resources:[{name:"Kaggle Learn, Intro & Intermediate ML",url:"https://www.kaggle.com/learn/intro-to-machine-learning",note:"Free"},{name:"Kaggle Learn, Feature Engineering",url:"https://www.kaggle.com/learn/feature-engineering",note:"Free"},{name:"StatQuest, ML Fundamentals",url:"https://www.youtube.com/@statquest",note:"YouTube, intuitive explanations of every classical algorithm"},{name:"Coursera, Machine Learning Specialization",url:"https://www.coursera.org/specializations/machine-learning-introduction",note:"Andrew Ng's course, audit free, covers regression through neural nets"}]},
+      {name:"Deep Learning",lbl:"Phase 3",time:"7–9 weeks",
+       desc:"Neural networks, transformers, and the modern deep learning stack. This phase covers how to build, train, and debug models, not just use pre-built ones. Understanding backpropagation and attention at a conceptual level is now a baseline for ML engineering roles.",
+       topics:["Neural network fundamentals","Backpropagation","CNNs & computer vision basics","Transformers & attention","Hugging Face & pre-trained models"],
+       resources:[{name:"fast.ai, Practical Deep Learning",url:"https://course.fast.ai",note:"Free, uses PyTorch"},{name:"Andrej Karpathy, Neural Nets: Zero to Hero",url:"https://karpathy.ai/zero-to-hero.html",note:"Free, builds GPT from scratch"},{name:"Hugging Face NLP Course",url:"https://huggingface.co/learn/nlp-course",note:"Free"},{name:"StatQuest, Neural Networks",url:"https://www.youtube.com/@statquest",note:"YouTube, backpropagation and neural nets explained from first principles"}]},
+      {name:"MLOps & Deployment",lbl:"Phase 4",time:"5–7 weeks",
+       desc:"Getting a model to work in a notebook is one thing. Shipping it into a product that runs reliably, handles failures, and can be monitored, that's MLOps. This phase separates ML researchers from ML engineers.",
+       topics:["Model serving with APIs","Experiment tracking","Containerization with Docker","Monitoring & model drift","CI/CD for ML"],
+       resources:[{name:"FastAPI documentation",url:"https://fastapi.tiangolo.com",note:"Free"},{name:"Full Stack Deep Learning",url:"https://fullstackdeeplearning.com",note:"Free course on production ML"}]},
+      {name:"Specialization & Portfolio",lbl:"Phase 5",time:"6–8 weeks",
+       desc:"Pick a niche, computer vision, NLP, recommendation systems, and go deep. The ML job market is competitive. The candidates who stand out have built things, deployed them, and can talk through the tradeoffs they made.",
+       topics:["Choosing a specialization","End-to-end ML system design","Deploying a live demo","ML system design interview prep"],
+       resources:[{name:"Hugging Face Spaces",url:"https://huggingface.co/spaces",note:"Free hosting for ML demos"},{name:"Chip Huyen, ML System Design",url:"https://huyenchip.com/machine-learning-systems-design/toc.html",note:"Free"}]}
+    ],
+    projects:[
+      {name:"Linear regression from scratch",diff:"s",desc:"Implement linear regression using only NumPy, no Scikit-learn. Calculate gradients manually, visualize the loss curve, then verify against Scikit-learn. Shows you understand the math, not just the library."},
+      {name:"Tabular ML competition",diff:"s",desc:"Enter a beginner Kaggle competition. Try at least 3 models, do some feature engineering, and write up what you tried and why, including what didn't work."},
+      {name:"Fine-tuned text classifier",diff:"m",desc:"Fine-tune a small Hugging Face model (DistilBERT) on a text classification task. Deploy to Hugging Face Spaces so you have a live demo link."},
+      {name:"End-to-end ML system",diff:"a",desc:"Build a complete system: data ingestion, training pipeline, model API, and basic monitoring. Use MLflow for experiment tracking and Docker for containerization."}
+    ],
+    resources:[
+      {free:true,name:"fast.ai, Practical Deep Learning",where:"fast.ai",desc:"Free, world-class deep learning. Real results from day one."},
+      {free:true,name:"Andrej Karpathy, Zero to Hero",where:"YouTube",desc:"Build GPT from scratch. The best way to truly understand LLMs."},
+      {free:true,name:"Hugging Face NLP Course",where:"huggingface.co/learn",desc:"Free, comprehensive NLP using the transformers library."},
+      {free:true,name:"Full Stack Deep Learning",where:"fullstackdeeplearning.com",desc:"Free, going from notebook to production ML."},
+      {free:false,name:"Designing Machine Learning Systems",where:"Chip Huyen",desc:"Essential for ML engineering roles, system design, pipelines, production ML."}
+    ]
+  },
+  engineer:{
+    phases:[
+      {name:"Python & Advanced SQL",lbl:"Phase 1",time:"5–7 weeks",
+       desc:"Data engineering is software engineering applied to data problems. Your code will run unattended, handle failures, and be maintained by others. That means clean, testable Python and SQL that actually works at scale.",
+       topics:["Python (intermediate)","Unit testing","Advanced SQL (CTEs, window functions, optimization)","Data modeling basics","Command line fundamentals"],
+       resources:[{name:"Mode SQL Tutorial",url:"https://mode.com/sql-tutorial/",note:"Free, covers advanced SQL well"},{name:"SQLZoo",url:"https://sqlzoo.net",note:"Free, interactive"},{name:"Guy in a Cube",url:"https://www.youtube.com/@GuyInACube",note:"YouTube, Power BI and data modeling tutorials, very practical for BI/DE crossover"}]},
+      {name:"Data Pipelines & Orchestration",lbl:"Phase 2",time:"5–7 weeks",
+       desc:"The core of data engineering is building pipelines that reliably move and transform data. This phase covers how modern data teams build ELT pipelines, extracting data, loading it into a warehouse, and transforming it with SQL using tools like dbt.",
+       topics:["ETL vs. ELT patterns","Pipeline orchestration with Airflow","Data transformation with dbt","Data quality & testing","Incremental loading strategies"],
+       resources:[{name:"dbt Learn, Fundamentals",url:"https://courses.getdbt.com/courses/fundamentals",note:"Free, official dbt course"},{name:"DataTalks.Club, DE Zoomcamp",url:"https://datatalks.club/blog/data-engineering-zoomcamp.html",note:"Free bootcamp"}]},
+      {name:"Distributed Computing",lbl:"Phase 3",time:"6–8 weeks",
+       desc:"When data gets too large for a single machine, you need distributed processing. Spark is the industry standard for batch processing at scale. Knowing when to use it, and when not to, is as important as knowing how.",
+       topics:["Distributed systems concepts","PySpark & DataFrames","Spark SQL","Batch vs. streaming","Kafka fundamentals"],
+       resources:[{name:"Databricks Community Edition",url:"https://community.cloud.databricks.com",note:"Free Spark environment"},{name:"Confluent Kafka Tutorials",url:"https://developer.confluent.io/tutorials/",note:"Free"}]},
+      {name:"Cloud & Data Warehousing",lbl:"Phase 4",time:"5–7 weeks",
+       desc:"Most data engineering work happens in the cloud. This phase covers the modern data stack, cloud storage, cloud data warehouses, and how to design a warehouse that's actually usable by the analysts and scientists who rely on it.",
+       topics:["Cloud fundamentals (AWS or GCP)","Cloud data warehouses (BigQuery, Snowflake, Redshift)","Star schema & data modeling","Query optimization","Infrastructure basics"],
+       resources:[{name:"AWS Cloud Practitioner Essentials",url:"https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/",note:"Free"},{name:"BigQuery free tier",url:"https://cloud.google.com/bigquery/docs/quickstarts",note:"Free tier + quickstart"}]},
+      {name:"Portfolio & System Design",lbl:"Phase 5",time:"5–7 weeks",
+       desc:"Data engineering interviews often include system design questions. This phase is about tying everything together into a portfolio project and preparing to talk through your design decisions.",
+       topics:["Docker & containerization","GitHub Actions for CI/CD","System design for data","End-to-end pipeline project","Interview preparation"],
+       resources:[{name:"Docker Getting Started",url:"https://docs.docker.com/get-started/",note:"Free"},{name:"System Design Primer",url:"https://github.com/donnemartin/system-design-primer",note:"Free GitHub resource"}]}
+    ],
+    projects:[
+      {name:"SQL analytics layer",diff:"s",desc:"Load a public dataset into a local PostgreSQL database. Write 10–15 analytical SQL queries covering aggregations, window functions, and CTEs. Document each query and what business question it answers."},
+      {name:"Automated ELT pipeline",diff:"m",desc:"Build an Airflow DAG that pulls data from a public API, loads it into a database, and transforms it with dbt. Schedule it to run daily and add at least one data quality check."},
+      {name:"Cloud data warehouse build",diff:"m",desc:"Move your pipeline to the cloud using BigQuery or Snowflake on a free tier. Use cloud storage as a staging layer, transform with dbt, and add dbt tests and documentation."},
+      {name:"Full data platform",diff:"a",desc:"Build a complete mini platform: ingest from a real source, stage in cloud storage, load into a warehouse, transform with dbt, orchestrate with Airflow, containerize with Docker. Walk through every design decision you made."}
+    ],
+    resources:[
+      {free:true,name:"DataTalks.Club, Data Engineering Zoomcamp",where:"datatalks.club",desc:"Free DE bootcamp covering Docker, Airflow, Spark, BigQuery, and dbt."},
+      {free:true,name:"dbt Learn, Fundamentals",where:"courses.getdbt.com",desc:"Free official dbt course. The best way to learn modern ELT patterns."},
+      {free:true,name:"AWS Cloud Practitioner Essentials",where:"aws.amazon.com/training",desc:"Free. A cloud cert meaningfully improves job prospects."},
+      {free:false,name:"Fundamentals of Data Engineering",where:"Joe Reis & Matt Housley, O'Reilly",desc:"The definitive modern data engineering book."},
+      {free:false,name:"Designing Data-Intensive Applications",where:"Martin Kleppmann, O'Reilly",desc:"Essential for distributed systems and data architecture. Read after Phase 3."}
+    ]
+  }
+};
+
+/* ── STATE ──────────────────────────────────────── */
+let qIdx=0,answers=[],sel=null,curPath=null,curSector=null,prevPage='home';
+
+/* ── NAV ────────────────────────────────────────── */
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='quiz'){qIdx=0;answers=[];sel=null;renderQ();}
+}
+function roadmap(key){
+  prevPage=document.querySelector('.page.active')?.id?.replace('page-','')||'home';
+  curPath=key;curSector=null;
+  buildRM(key);
+  show('roadmap');
+  document.getElementById('rm-back').onclick=()=>show(prevPage);
+}
+
+/* ── QUIZ ───────────────────────────────────────── */
+function renderQ(){
+  sel=null;
+  const q=QS[qIdx],L=['A','B','C','D'];
+  document.getElementById('prog').style.width=Math.round(qIdx/QS.length*100)+'%';
+  document.getElementById('prog-lbl').textContent=(qIdx+1)+' of '+QS.length;
+  document.getElementById('q-card').innerHTML=`
+    <div class="q-num">Question ${qIdx+1}</div>
+    <div class="q-text">${q.t}</div>
+    <div class="choices">${q.c.map((c,i)=>`<button class="choice-btn" onclick="pick('${c.v}',this)"><span class="choice-ltr">${L[i]}</span>${c.l}</button>`).join('')}</div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="goBack()" style="${qIdx===0?'visibility:hidden':''}">← Back</button>
+      <button class="btn-next" id="btn-n" onclick="goNext()" disabled>${qIdx===QS.length-1?'See my results →':'Next →'}</button>
+    </div>`;
+}
+function pick(v,btn){document.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');sel=v;document.getElementById('btn-n').disabled=false;}
+function goNext(){if(!sel)return;answers[qIdx]=sel;if(qIdx<QS.length-1){qIdx++;renderQ();}else showResult();}
+function goBack(){if(qIdx>0){qIdx--;renderQ();}}
+
+/* ── RESULT ─────────────────────────────────────── */
+function showResult(){
+  const sc={analyst:0,science:0,ml:0,engineer:0};
+  answers.forEach(a=>{if(AV[a])sc[AV[a]]-=2;else if(sc[a]!==undefined)sc[a]++;});
+  const s=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
+  const top=s[0][0],sec=s[1][0];
+  document.getElementById('r-title').textContent=HEADLINES[top];
+  document.getElementById('r-sub').textContent=SUBS[top];
+  const tmap={analyst:['SQL','Tableau','Python','Excel'],science:['Python/R','Statistics','Scikit-learn','Jupyter'],ml:['PyTorch','TensorFlow','MLOps','Hugging Face'],engineer:['Airflow','Spark','dbt','Cloud']};
+  const card=(k,best)=>{const m=META[k];return`<div class="rpc ${best?'best':''}" onclick="roadmap('${k}')"><div class="rpc-top"><div class="rpc-name">${m.icon} ${m.name}</div><span class="badge ${best?'badge-best':'badge-also'}">${best?'Best match':'Also consider'}</span></div><div class="rpc-desc">${m.desc}</div><div class="tags">${tmap[k].map(t=>`<span class="tag">${t}</span>`).join('')}</div><div class="rpc-cta">View full roadmap →</div></div>`;};
+  document.getElementById('r-cards').innerHTML=card(top,true)+card(sec,false);
+  show('result');
+}
+
+/* ── ROADMAP BUILD ──────────────────────────────── */
+function buildRM(key){
+  const m=META[key],r=RM[key];
+  document.getElementById('rm-header').innerHTML=`
+    <span class="rm-badge ${m.cls}">${m.name}</span>
+    <div class="rm-title">${m.tagline}</div>
+    <div class="rm-desc">${m.desc}</div>
+    <div class="rm-meta">
+      <div class="rm-meta-item">⏱ Timeline: <span>${m.time}</span></div>
+      <div class="rm-meta-item">💼 Avg salary: <span>${m.sal}</span></div>
+      <div class="rm-meta-item">📈 Demand: <span>${m.dem}</span></div>
+    </div>`;
+  // Build sector pills
+  const pillsEl=document.getElementById('sector-pills');
+  pillsEl.innerHTML=Object.entries(SECTORS).map(([k,s])=>
+    `<button class="sector-pill ${curSector===k?'active':''}" onclick="selectSector('${key}','${k}')">${s.label}</button>`
+  ).join('');
+  buildRoadmapTab(key);
+  buildProjectsTab(key);
+  buildResourcesTab(key);
+  rmTab('roadmap');
+}
+
+function selectSector(pathKey,sectorKey){
+  if(curSector===sectorKey){
+    // toggle off
+    curSector=null;
+    document.getElementById('sector-panel').classList.remove('visible');
+    document.querySelectorAll('.sector-pill').forEach(p=>p.classList.remove('active'));
+    return;
+  }
+  curSector=sectorKey;
+  document.querySelectorAll('.sector-pill').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  buildSectorPanel(pathKey,sectorKey);
+}
+
+function buildSectorPanel(pathKey,sectorKey){
+  const s=SECTORS[sectorKey];
+  const sd=s[pathKey];
+  const m=META[pathKey];
+  const panel=document.getElementById('sector-panel');
+  panel.style.setProperty('--ac',m.ac);
+  panel.innerHTML=`
+    <div class="sp-header">
+      <div class="sp-title">${s.label}, ${META[pathKey].name}</div>
+      <button class="sp-close" onclick="selectSector('${pathKey}','${sectorKey}')">✕ Close</button>
+    </div>
+    <div class="sp-sections">
+      <div class="sp-section sp-mindset" style="--ac:${m.ac}">
+        <div class="sp-sec-label">How to think in this field</div>
+        <div class="sp-sec-body">${sd.mindset}</div>
+      </div>
+      <div class="sp-section">
+        <div class="sp-sec-label">Context & environment</div>
+        <div class="sp-sec-body">${sd.context}</div>
+      </div>
+      <div class="sp-section">
+        <div class="sp-sec-label">Common tools in this sector</div>
+        <div class="sp-tools-list">${sd.tools.map(t=>`<span class="sp-tool">${t}</span>`).join('')}</div>
+      </div>
+      <div class="sp-section">
+        <div class="sp-sec-label">Datasets & projects to try</div>
+        <div class="sp-sec-body">${sd.datasets}<br><br><em style="font-size:12px;color:var(--ink3)">${sd.projects}</em></div>
+      </div>
+    </div>`;
+  panel.classList.add('visible');
+}
+
+function buildRoadmapTab(key){
+  const m=META[key],r=RM[key];
+  let h=`<div class="timeline" style="--ac:${m.ac}">`;
+  r.phases.forEach((ph,i)=>{
+    h+=`<div class="phase ${i===0?'open':''}" id="ph-${key}-${i}" style="--ac:${m.ac}">
+      <div class="phase-dot"></div>
+      <div class="phase-hdr" onclick="togglePh('${key}',${i})">
+        <div><div class="phase-lbl">${ph.lbl}</div><div class="phase-name">${ph.name}</div></div>
+        <div class="phase-time">${ph.time}</div>
+        <div class="phase-toggle">▼</div>
+      </div>
+      <div class="phase-body">
+        <div class="ps">
+          <div class="ps-desc">${ph.desc}</div>
+          <div class="topic-pills" style="margin-top:12px">${ph.topics.map(t=>`<span class="topic-pill">${t}</span>`).join('')}</div>
+        </div>
+        <div class="ps" style="background:var(--off)">
+          <div class="ps-lbl">Resources for this phase</div>
+          <div class="phase-resources">
+            ${ph.resources.map(res=>`<div class="phase-res-item"><div><a class="phase-res-link" href="${res.url}" target="_blank" style="--ac:${m.ac}">${res.name}</a><div class="phase-res-note">${res.note}</div></div></div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  });
+  h+='</div>';
+  document.getElementById('tab-roadmap').innerHTML=h;
+}
+
+function buildProjectsTab(key){
+  const r=RM[key];
+  const dl={s:'Starter',m:'Intermediate',a:'Advanced'};
+  let h=`<p style="font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:20px">Project ideas to build your portfolio as you work through each phase. These are starting points, make them your own, pick data from your target industry, and document your thinking.</p>`;
+  r.projects.forEach(p=>{
+    h+=`<div class="project-card"><div class="proj-top"><div class="proj-name">${p.name}</div><span class="proj-diff ${p.diff}">${dl[p.diff]}</span></div><div class="proj-desc">${p.desc}</div></div>`;
+  });
+  document.getElementById('tab-projects').innerHTML=h;
+}
+
+function buildResourcesTab(key){
+  const r=RM[key];
+  let h=`<p style="font-size:14px;color:var(--ink2);line-height:1.6;margin-bottom:20px">Curated resources for this path. No filler.</p>`;
+  r.resources.forEach(res=>{
+    h+=`<div class="res-block"><span class="res-badge ${res.free?'free':'book'}">${res.free?'FREE':'BOOK'}</span><div><span class="res-name">${res.name}</span><span class="res-where">${res.where}</span><div class="res-desc">${res.desc}</div></div></div>`;
+  });
+  document.getElementById('tab-resources').innerHTML=h;
+}
+
+function togglePh(key,i){document.getElementById('ph-'+key+'-'+i).classList.toggle('open');}
+
+function rmTab(t){
+  const tabs=['roadmap','projects','resources'];
+  document.querySelectorAll('.rm-tab').forEach((el,i)=>el.classList.toggle('active',tabs[i]===t));
+  document.querySelectorAll('.rm-tab-content').forEach((el,i)=>el.classList.toggle('active',tabs[i]===t));
+}
+
+/* ── CAREER HUB FILTER TABS ─────────────────────── */
+function fTab(group,key){
+  const keys=['analyst','science','ml','engineer'];
+  // toggle content
+  keys.forEach(k=>{
+    const el=document.getElementById(group+'-'+k);
+    if(el)el.classList.toggle('active',k===key);
+  });
+  // toggle buttons: find parent section
+  document.querySelectorAll('.hub-section').forEach(sec=>{
+    if(sec.querySelector('#'+group+'-'+key)){
+      sec.querySelectorAll('.ftab').forEach((btn,i)=>{
+        btn.classList.toggle('active',keys[i]===key);
+      });
+    }
+  });
+}
+
+function switchBoards(which){
+  const isGeneral = which === 'general';
+  document.getElementById('boards-general').style.display = isGeneral ? 'flex' : 'none';
+  document.getElementById('boards-mission').style.display = isGeneral ? 'none' : 'flex';
+  const btnG = document.getElementById('btn-general');
+  const btnM = document.getElementById('btn-mission');
+  btnG.style.background = isGeneral ? '#0d6e6e' : 'transparent';
+  btnG.style.color = isGeneral ? '#ffffff' : '#5a6a5a';
+  btnG.style.border = isGeneral ? 'none' : '1px solid #dce8dc';
+  btnG.style.fontWeight = isGeneral ? '600' : '500';
+  btnM.style.background = isGeneral ? 'transparent' : '#0d6e6e';
+  btnM.style.color = isGeneral ? '#5a6a5a' : '#ffffff';
+  btnM.style.border = isGeneral ? '1px solid #dce8dc' : 'none';
+  btnM.style.fontWeight = isGeneral ? '500' : '600';
+}
+
+</script>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div style="max-width:680px;margin:0 auto;padding:56px 32px 80px">
+    <div class="sec-eye">About</div>
+    <div style="font-family:var(--serif);font-size:clamp(30px,5vw,46px);letter-spacing:-1px;line-height:1.06;margin-bottom:24px">Why this site exists.</div>
+
+    <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px">
+      I didn't come from a traditional data or tech background. My path started in a math classroom, teaching high school students, trying to make abstract concepts feel real and useful. It was there that I fell in love with what data could do: not just numbers on a spreadsheet, but a lens for understanding people, systems, and problems. Without a formal tech degree, I know firsthand how overwhelming it can feel to try to break into this field, and how hard it is to find guidance that actually speaks to where you're starting from.
+    </div>
+    <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px">
+      When I decided to make the transition into data, I quickly realized how overwhelming the landscape is. There are hundreds of courses, bootcamps, YouTube channels, and blog posts, all telling you different things about where to start, what to learn, and what employers actually want. Most of the resources I found were generic. They didn't account for the fact that a researcher in public health thinks about data completely differently than an analyst at a tech startup. They didn't tell you that domain knowledge often matters as much as technical skills. And they definitely didn't help you figure out how to break in without a computer science degree.
+    </div>
+    <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px">
+      So I built the guide I wish I'd had.
+    </div>
+
+    <div style="background:var(--surface2);border-radius:var(--r);padding:20px 24px;margin-bottom:20px;border-left:3px solid var(--green)">
+      <div style="font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">About the name</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.7">Ippo (一歩) is Japanese for "one step." The name comes from the Lao Tzu proverb — a journey of a thousand miles begins with a single step. Every data career starts somewhere. This is where yours does.</div>
+    </div>
+
+    <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px">
+      This site is for people who are earlier in that journey, whether you're a teacher, a policy analyst, a recent graduate, or someone who just realized they want to work with data. It's not a course. It's not trying to sell you anything. It's a roadmap, built by someone who has been through it, designed to give you orientation and direction without the noise.
+    </div>
+    <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:32px">
+      The site is still growing. If something is wrong, missing, or could be better, please tell me. That feedback is how this gets more useful for the next person who lands here.
+    </div>
+
+
+    <div style="border-top:1px solid var(--border);margin-top:36px;padding-top:28px;display:flex;align-items:center;gap:20px;flex-wrap:nowrap">
+      <img src="data:image/jpeg;base64,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" alt="Chris Kucewicz" style="width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--border)">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px">Chris Kucewicz</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px">I'm always happy to connect, whether you have questions about the transition into data or just want to chat about the field.</div>
+        <a href="https://www.linkedin.com/in/chriskucewicz/" target="_blank" title="Connect on LinkedIn" style="display:inline-flex;align-items:center;text-decoration:none;transition:opacity .15s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="6" fill="#0A66C2"/>
+            <path d="M11.5 13.5H8.5V23.5H11.5V13.5Z" fill="white"/>
+            <circle cx="10" cy="10.5" r="1.75" fill="white"/>
+            <path d="M23.5 23.5H20.5V18.25C20.5 17 19.75 16.25 18.75 16.25C17.75 16.25 17 17 17 18.25V23.5H14V13.5H17V14.75C17.5 13.875 18.625 13.25 19.875 13.25C22 13.25 23.5 14.75 23.5 17.25V23.5Z" fill="white"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--border);padding-top:28px;display:flex;gap:16px;flex-wrap:wrap">
+      <button class="btn-primary" onclick="show('quiz')" style="font-size:14px">Take the quiz →</button>
+      <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSfTRYP4u-QOcPBgv4cUsKW5wWynLacNbR9WQMpYmKLur4tZJA/viewform?usp=dialog')" style="font-size:14px;font-weight:500;color:var(--green);background:none;border:none;cursor:pointer;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px">Share feedback</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="page" id="page-feedback">
+  <div style="max-width:620px;margin:0 auto;padding:56px 32px 80px">
+    <div class="sec-eye">Feedback</div>
+    <div style="font-family:var(--serif);font-size:clamp(26px,4vw,40px);letter-spacing:-0.8px;line-height:1.1;margin-bottom:12px">Help make this better.</div>
+    <div style="font-size:15px;color:var(--text2);line-height:1.6;margin-bottom:32px">Found a bug? Know a resource that should be here? Have an idea? All of it is welcome. This site improves because of people like you.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px">
+      <div style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:20px">We use a short Google Form to keep feedback organized. It takes less than a minute and you can leave your email if you would like a reply.</div>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTRYP4u-QOcPBgv4cUsKW5wWynLacNbR9WQMpYmKLur4tZJA/viewform?usp=dialog" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#ffffff;background:#0d6e6e;padding:10px 22px;border-radius:8px;text-decoration:none" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Open feedback form &rarr;</a>
+    </div>
+  </div>
+</div>
+t
