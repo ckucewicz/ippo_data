@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ippo Data</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -15,7 +15,7 @@
   --blue:#4f46e5;--blue-bg:#f5f4ff;
   --purple:#4f46e5;--purple-bg:#f5f4ff;
   --amber:#4f46e5;--amber-bg:#f5f4ff;
-  --r:10px;--serif:'Syne',sans-serif;--sans:'DM Sans',system-ui,sans-serif;
+  --r:10px;--serif:'Outfit',sans-serif;--sans:'Manrope',system-ui,sans-serif;
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;min-height:100vh}
@@ -45,7 +45,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(250,246,240,0.95);backdrop
 .hero{max-width:700px;margin:0 auto;padding:80px 32px 64px;text-align:center}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--green);margin-bottom:20px}
 .eyebrow::before,.eyebrow::after{content:'';display:block;width:20px;height:1px;background:#4f46e5}
-h1.hero-title{font-family:var(--serif);font-size:clamp(38px,6.5vw,66px);line-height:1.0;letter-spacing:-2px;margin-bottom:20px}
+h1.hero-title{font-family:var(--serif);font-size:clamp(38px,6.5vw,66px);line-height:1.0;letter-spacing:-1.5px;margin-bottom:20px}
 h1.hero-title em{font-style:italic;color:var(--green)}
 .hero-sub{font-size:17px;color:var(--ink2);max-width:460px;margin:0 auto 10px;line-height:1.65;font-weight:300}
 .hero-byline{font-size:13px;color:var(--ink3);margin-bottom:40px;font-style:italic}
@@ -55,7 +55,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 .proof-lbl{font-size:12px;color:var(--ink2);font-weight:500;text-align:center}
 .home-sec{max-width:840px;margin:0 auto;padding:72px 32px}
 .sec-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-.sec-h{font-family:var(--serif);font-size:clamp(26px,4vw,38px);letter-spacing:-1px;line-height:1.08;margin-bottom:40px}
+.sec-h{font-family:var(--serif);font-size:clamp(26px,4vw,38px);letter-spacing:-0.8px;line-height:1.1;margin-bottom:40px}
 .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .step-card{padding:22px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}
 .step-n{font-family:var(--serif);font-size:36px;color:var(--ink4);line-height:1;margin-bottom:10px}
@@ -299,7 +299,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 @media(max-width:460px){.paths-grid,.people-grid{grid-template-columns:1fr}}
 
 /* RESUME PREVIEW */
-.resume-preview{background:#fff;border:1px solid #e8e6e8;border-radius:var(--r);padding:32px 36px;font-family:'DM Sans',system-ui,sans-serif;color:#111;margin-top:4px}
+.resume-preview{background:#fff;border:1px solid #e8e6e8;border-radius:var(--r);padding:32px 36px;font-family:'Manrope',system-ui,sans-serif;color:#111;margin-top:4px}
 .rp-header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #4f46e5}
 .rp-name{font-size:22px;font-weight:700;letter-spacing:-0.3px;margin-bottom:4px;color:#111}
 .rp-contact{font-size:11px;color:#666}
@@ -321,7 +321,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 </head>
 <body>
 
-<div id="beta-banner" style="background:#4f46e5;color:#ffffff;font-family:'DM Sans',system-ui,sans-serif;font-size:13px;font-weight:500;text-align:center;padding:9px 48px;position:relative;line-height:1.4">
+<div id="beta-banner" style="background:#4f46e5;color:#ffffff;font-family:'Manrope',system-ui,sans-serif;font-size:13px;font-weight:500;text-align:center;padding:9px 48px;position:relative;line-height:1.4">
   We're in beta! This site is actively being built, content, paths, and resources will keep improving.
   &nbsp;·&nbsp;
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTRYP4u-QOcPBgv4cUsKW5wWynLacNbR9WQMpYmKLur4tZJA/viewform?usp=dialog" target="_blank" onclick="document.getElementById('beta-banner').style.display='none'" style="color:#ffffff;font-weight:700;text-decoration:underline;text-underline-offset:3px">Share feedback or suggest a resource →</a>
@@ -344,7 +344,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
   <div class="hero">
     <h1 class="hero-title">Your data career<br><em>starts here.</em></h1>
     <p class="hero-sub">Not sure where to start? This site cuts through the noise and shows you exactly what to learn, based on what you enjoy and where you want to work.</p>
-    <p class="hero-byline">Every data career starts somewhere. This is where yours does.</p>
+    <p class="hero-byline">Built by someone who did it without a formal tech degree, so you can too.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="show('quiz')">Take the quiz, find your path</button>
       <button class="btn-ghost" onclick="show('paths')">Browse all paths</button>
