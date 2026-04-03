@@ -318,18 +318,18 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 .rp-placeholder{color:#888;font-style:italic}
 
 
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:4px;background:none;border:none;flex-shrink:0}
 .hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{display:none;position:absolute;top:58px;left:0;right:0;background:var(--bg);border-bottom:2px solid #111111;padding:12px 20px 16px;flex-direction:column;gap:4px;z-index:199}
-.mobile-menu.open{display:flex}
-.mobile-menu .nav-link{text-align:left;padding:10px 12px;font-size:14px;border-radius:6px}
-.mobile-menu .nav-cta{margin:8px 0 0;padding:11px 16px;text-align:center;border-radius:6px;font-size:14px}
+.mobile-menu{display:none;flex-direction:column;gap:4px;background:var(--bg);border-bottom:2px solid #111111;padding:12px 20px 16px;position:relative;z-index:199}
+.mobile-menu.open{display:flex !important}
+.mobile-menu .nav-link{text-align:left;padding:10px 12px;font-size:14px;border-radius:6px;width:100%}
+.mobile-menu .nav-cta{margin:8px 0 0;padding:11px 16px;text-align:center;border-radius:6px;font-size:14px;width:100%}
 @media(max-width:640px){
   .hamburger{display:flex}
-  .nav-links{display:none}
+  .nav-links{display:none !important}
 }
 
 </style>
@@ -342,7 +342,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTRYP4u-QOcPBgv4cUsKW5wWynLacNbR9WQMpYmKLur4tZJA/viewform?usp=dialog" target="_blank" onclick="document.getElementById('beta-banner').style.display='none'" style="color:#ffffff;font-weight:700;text-decoration:underline;text-underline-offset:3px">Share feedback or suggest a resource →</a>
   <button onclick="document.getElementById('beta-banner').style.display='none'" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:#ffffff;opacity:0.6;line-height:1;font-family:sans-serif">×</button>
 </div>
-<nav style="position:relative">
+<nav>
   <div class="nav-logo" onclick="show('home');closeMobileMenu()">Ippo <span>Data</span></div>
   <div class="nav-links">
     <button class="nav-link" onclick="show('home')">Home</button>
@@ -678,18 +678,21 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+</script><script>
 function toggleMobileMenu(){
-  const btn = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-  btn.classList.toggle('open');
-  menu.classList.toggle('open');
+  const btn=document.getElementById('hamburger');
+  const menu=document.getElementById('mobile-menu');
+  const isOpen=menu.classList.contains('open');
+  if(isOpen){menu.classList.remove('open');btn.classList.remove('open');}
+  else{menu.classList.add('open');btn.classList.add('open');}
 }
 function closeMobileMenu(){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobile-menu').classList.remove('open');
+  const btn=document.getElementById('hamburger');
+  const menu=document.getElementById('mobile-menu');
+  if(btn)btn.classList.remove('open');
+  if(menu)menu.classList.remove('open');
 }
 
-</script><script>
 /* ── QUIZ DATA ──────────────────────────────────── */
 const QS=[
   {t:"When you picture a typical work day, what sounds most appealing?",c:[{l:"Answering business questions by digging through data",v:"analyst"},{l:"Running experiments and building predictive models",v:"science"},{l:"Training and deploying machine learning models into products",v:"ml"},{l:"Designing the systems that store and move data reliably",v:"engineer"}]},
