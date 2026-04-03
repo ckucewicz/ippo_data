@@ -317,6 +317,21 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 .rp-bullets li{font-size:12px;color:#444;line-height:1.55;margin-bottom:3px}
 .rp-placeholder{color:#888;font-style:italic}
 
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:absolute;top:58px;left:0;right:0;background:var(--bg);border-bottom:2px solid #111111;padding:12px 20px 16px;flex-direction:column;gap:4px;z-index:199}
+.mobile-menu.open{display:flex}
+.mobile-menu .nav-link{text-align:left;padding:10px 12px;font-size:14px;border-radius:6px}
+.mobile-menu .nav-cta{margin:8px 0 0;padding:11px 16px;text-align:center;border-radius:6px;font-size:14px}
+@media(max-width:640px){
+  .hamburger{display:flex}
+  .nav-links{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -327,8 +342,8 @@ h1.hero-title em{font-style:italic;color:var(--green)}
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTRYP4u-QOcPBgv4cUsKW5wWynLacNbR9WQMpYmKLur4tZJA/viewform?usp=dialog" target="_blank" onclick="document.getElementById('beta-banner').style.display='none'" style="color:#ffffff;font-weight:700;text-decoration:underline;text-underline-offset:3px">Share feedback or suggest a resource →</a>
   <button onclick="document.getElementById('beta-banner').style.display='none'" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:#ffffff;opacity:0.6;line-height:1;font-family:sans-serif">×</button>
 </div>
-<nav>
-  <div class="nav-logo" onclick="show('home')">Ippo <span>Data</span></div>
+<nav style="position:relative">
+  <div class="nav-logo" onclick="show('home');closeMobileMenu()">Ippo <span>Data</span></div>
   <div class="nav-links">
     <button class="nav-link" onclick="show('home')">Home</button>
     <button class="nav-link" onclick="show('quiz')">Quiz</button>
@@ -337,7 +352,18 @@ h1.hero-title em{font-style:italic;color:var(--green)}
     <button class="nav-link" onclick="show('about')">About</button>
     <button class="nav-cta" onclick="show('quiz')">Find my path →</button>
   </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="nav-link" onclick="show('home');closeMobileMenu()">Home</button>
+  <button class="nav-link" onclick="show('quiz');closeMobileMenu()">Quiz</button>
+  <button class="nav-link" onclick="show('paths');closeMobileMenu()">Paths</button>
+  <button class="nav-link" onclick="show('hub');closeMobileMenu()">Career Hub</button>
+  <button class="nav-link" onclick="show('about');closeMobileMenu()">About</button>
+  <button class="nav-cta" onclick="show('quiz');closeMobileMenu()">Find my path →</button>
+</div>
 
 <!-- HOME -->
 <div class="page active" id="page-home">
@@ -457,7 +483,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
 <div class="page" id="page-hub">
   <div class="hub-wrap">
     <div class="sec-eye">Career Hub</div>
-    <div class="hub-title">Build your network.<br>Land the job.</div>
+    <div class="hub-title">Land the job.<br>Build your network.</div>
     <div class="hub-sub">Skills get you in the room. Strategy gets you the offer. Here's how to approach the job search intentionally.</div>
 
     <!-- JOB SEARCH STRATEGY -->
@@ -522,7 +548,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
       <div class="tip-card"><div class="tip-title">Data role resume template</div><div class="tip-body">
         A one-page template built specifically for data roles, with section order, bullet prompts, and guidance baked in.
         <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <a href="https://docs.google.com/document/d/19mGLUfqF9GtjtXY5YO-NhJbjXpaNSlKc-yWlOaP_dnc/edit?usp=sharing" target="_blank" style="font-size:12px;font-weight:600;color:#ffffff;background:var(--green);padding:6px 14px;border-radius:6px;text-decoration:none">Download .docx template</a>
+          <a href="#" onclick="alert('Add your hosted .docx link here');return false;" style="font-size:12px;font-weight:600;color:#ffffff;background:var(--green);padding:6px 14px;border-radius:6px;text-decoration:none">Download .docx template</a>
           <button onclick="document.getElementById('resume-preview-toggle').classList.toggle('open')" style="font-size:12px;color:var(--green);background:none;border:none;cursor:pointer;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px">Preview template ↓</button>
         </div>
       </div></div>
@@ -633,7 +659,7 @@ h1.hero-title em{font-style:italic;color:var(--green)}
       <div id="boards-mission" class="board-list" style="display:none">
         <div class="board-item"><div><div class="board-name"><a href="https://techjobsforgood.com" target="_blank" style="color:var(--text);text-decoration:none">Tech Jobs for Good</a></div><div class="board-desc">Mission-driven tech and data roles across nonprofits, government, and social enterprises.</div></div><span class="board-tag">Mission-driven</span></div>
         <div class="board-item"><div><div class="board-name"><a href="https://www.adf.uchicago.edu/" target="_blank" style="color:var(--text);text-decoration:none">UChicago Applied Data Fellowship</a></div><div class="board-desc">Fellowship placing data practitioners in public sector and civic organizations in Chicago.</div></div><span class="board-tag">Fellowship</span></div>
-        <div class="board-item"><div><div class="board-name"><a href="https://www.publicsolutionsjobs.com" target="_blank" style="color:var(--text);text-decoration:none">Public Solutions Jobs</a></div><div class="board-desc">Jobs in government, nonprofits, and public , including data and analytics roles.</div></div><span class="board-tag">Public sector</span></div>
+        <div class="board-item"><div><div class="board-name"><a href="https://www.publicsolutionsjobs.com" target="_blank" style="color:var(--text);text-decoration:none">Public Solutions Jobs</a></div><div class="board-desc">Jobs in government, nonprofits, and public policy, including data and analytics roles.</div></div><span class="board-tag">Public sector</span></div>
         <div class="board-item"><div><div class="board-name"><a href="https://www.educationpioneers.org" target="_blank" style="color:var(--text);text-decoration:none">Education Pioneers</a></div><div class="board-desc">Fellowship and job board for data, strategy, and operations roles in education.</div></div><span class="board-tag">Education</span></div>
         <div class="board-item"><div><div class="board-name"><a href="https://www.idealist.org" target="_blank" style="color:var(--text);text-decoration:none">Idealist</a></div><div class="board-desc">Nonprofit and social impact job board. Filter by data, research, or technology roles.</div></div><span class="board-tag">Nonprofit</span></div>
         <div class="board-item"><div><div class="board-name"><a href="https://sdp.cepr.harvard.edu" target="_blank" style="color:var(--text);text-decoration:none">Harvard Strategic Data Project</a></div><div class="board-desc">Fellowship placing data analysts in education agencies across the country.</div></div><span class="board-tag">Fellowship</span></div>
@@ -651,7 +677,19 @@ h1.hero-title em{font-style:italic;color:var(--green)}
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+function toggleMobileMenu(){
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+function closeMobileMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+</script><script>
 /* ── QUIZ DATA ──────────────────────────────────── */
 const QS=[
   {t:"When you picture a typical work day, what sounds most appealing?",c:[{l:"Answering business questions by digging through data",v:"analyst"},{l:"Running experiments and building predictive models",v:"science"},{l:"Training and deploying machine learning models into products",v:"ml"},{l:"Designing the systems that store and move data reliably",v:"engineer"}]},
@@ -1186,7 +1224,7 @@ function switchBoards(which){
     </div>
 
     <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px">
-      This site is for people who are earlier in that journey, whether you're a teacher, a nurse, a recent graduate, or someone who just realized they want to work with data. It's not a course. It's not trying to sell you anything. It's a roadmap, built by someone who has been through it, designed to give you orientation and direction without the noise.
+      This site is for people who are earlier in that journey, whether you're a teacher, a policy analyst, a recent graduate, or someone who just realized they want to work with data. It's not a course. It's not trying to sell you anything. It's a roadmap, built by someone who has been through it, designed to give you orientation and direction without the noise.
     </div>
     <div style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:32px">
       The site is still growing. If something is wrong, missing, or could be better, please tell me. That feedback is how this gets more useful for the next person who lands here.
